@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #fff;
+  color: #434343;
+}
+
+.container {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 80px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 40px;
+  font-size: 24px;
+  margin-left: 40px;
+  flex: 1;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 500;
+}
+
+.menu-item {
+  color: #AEAEAE;
+  cursor: pointer;
+}
+
+.menu-item.active {
+  color: #559DD5;
+  font-weight: 700;
+}
+
+.login-button {
+  background: #559DD5;
+  border-radius: 30px;
+  color: #fff;
+  padding: 6px 45px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.title-section {
+  text-align: left;
+  padding: 40px 86px;
+}
+
+.subtitle {
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.main-title {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.place {
+  display: flex;
+  margin: 40px 86px;
+  gap: 40px;
+}
+
+.place-img {
+  width: 859px;
+  height: 700px;
+  object-fit: cover;
+}
+
+.place-content {
+  width: 655px;
+}
+
+.place-content h2 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tags span {
+  background: #559DD5;
+  color: white;
+  padding: 7px 20px;
+  border-radius: 51px;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.description {
+  font-size: 20px;
+  line-height: 32px;
+  margin-bottom: 20px;
+}
+
+.info p {
+  font-size: 24px;
+  line-height: 38px;
+  margin: 5px 0;
+}
+
+.map-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 24px;
+  border: 1px solid #559DD5;
+  color: #559DD5;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+}

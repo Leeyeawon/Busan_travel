@@ -1,0 +1,280 @@
+/* =========================
+   0) Base Reset
+========================= */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+body {
+  overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
+  font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 0px;
+}
+
+.logo-img{
+    width: 100%;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* ✅ 로고+메뉴를 한 그룹으로 */
+.header-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* ✅ 기존 문제 원인 제거 */
+.nav-menu {
+  display: flex;
+  gap: 40px;
+  font-size: 24px;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.menu-item {
+  color: #AEAEAE;
+  cursor: pointer;
+}
+
+.menu-item.active {
+  color: #559DD5;
+  font-weight: 700;
+}
+
+.login-button {
+  background: #559DD5;
+  border-radius: 30px;
+  color: #fff;
+  padding: 6px 45px;
+  font-size: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .site-header { padding: 20px 40px; }
+  .nav-menu { gap: 24px; font-size: 20px; }
+  .logo { height: 34px; }
+}
+
+/* =========================
+   1) “레이아웃 유지 + 비율 축소” 반응형 핵심
+   - 1920 디자인을 그대로 한 장처럼 스케일링
+========================= */
+.scale-wrap {
+  --design-w: 1920px;
+  --design-h: 1867px;
+
+  /* ✅ 화면 폭에 맞춘 스케일 (1920보다 커지면 1 유지) */
+  --scale: min(1, calc(100vw / var(--design-w)));
+
+  width: 100%;
+  height: calc(var(--design-h) * var(--scale));
+  overflow: hidden;
+
+  /* 원본이 좌측 기준이어서 left 정렬 */
+  display: flex;
+  justify-content: flex-start;
+}
+
+.design-1920 {
+  width: var(--design-w);
+  height: var(--design-h);
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+
+  transform: scale(var(--scale));
+  transform-origin: top left;
+}
+
+/* =========================
+   2) Common Styles
+========================= */
+.poster {
+  position: absolute;
+  width: 467px;
+  height: 679px;
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+}
+
+.poster-caption {
+  position: absolute;
+  color: #434343;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.page-title {
+  position: absolute;
+  text-align: center;
+  color: #000;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+.event-box {
+  position: absolute;
+  background: #fff;
+  border-radius: 15px;
+  border: 2px solid #559DD5;
+}
+
+.event-title {
+  position: absolute;
+  color: #000;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+.event-loc,
+.event-date {
+  position: absolute;
+  color: #8E8E8E;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.event-thumb {
+  position: absolute;
+  width: 200px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  width: 110px;
+  height: 39px;
+  padding: 10px;
+  background: #559DD5;
+  border-radius: 53px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge span {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+/* Nav texts */
+.nav-text {
+  position: absolute;
+  text-align: center;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #AEAEAE;
+}
+
+.nav-festival {
+  color: #559DD5;
+  font-weight: 700;
+}
+
+/* Logo & login */
+.logo {
+  position: absolute;
+  width: 168px;
+  height: 39px;
+  left: 95px;
+  top: 23px;
+  object-fit: contain;
+}
+
+.login-pill {
+  position: absolute;
+  width: 144px;
+  height: 41px;
+  left: 1681px;
+  top: 21px;
+  background: #559DD5;
+  border-radius: 30px;
+}
+
+.login-text {
+  position: absolute;
+  left: 1721px;
+  top: 30px;
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* =========================
+   3) Absolute Position Mapping
+   - 너가 준 좌표/사이즈 그대로 옮김
+========================= */
+
+/* Posters */
+.poster-1 { left: 149px; top: 219px; }
+.poster-2 { left: 727px; top: 219px; box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.30); }
+.poster-3 { left: 1305px; top: 219px; box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.30); }
+
+/* Title */
+.page-title { left: 756px; top: 123px; }
+
+/* Poster captions */
+.caption-1 { left: 306px; top: 921px; }
+.caption-2 { left: 857px; top: 921px; text-align: center; }
+.caption-3 { left: 1475px; top: 921px; text-align: center; }
+
+/* Event boxes */
+.box-1 { width: 812px; height: 336px; left: 134px; top: 1058px; }
+.box-2 { width: 812px; height: 336px; left: 134px; top: 1421px; }
+.box-3 { width: 813px; height: 336px; left: 972px; top: 1058px; }
+.box-4 { width: 813px; height: 336px; left: 972px; top: 1421px; }
+
+/* Event 1 */
+.badge-1 { left: 168px; top: 1087px; }
+.title-1 { left: 168px; top: 1170px; width: 350px; height: 35px; }
+.loc-1   { left: 168px; top: 1236px; width: 350px; height: 25px; }
+.date-1  { left: 168px; top: 1271px; width: 300px; height: 26px; }
+.thumb-1 { left: 723px; top: 1080px; height: 291px; }
+
+/* Event 2 */
+.badge-2 { left: 1006px; top: 1087px; }
+.title-2 { left: 1006px; top: 1170px; width: 500px; height: 35px; }
+.loc-2   { left: 1006px; top: 1236px; width: 350px; height: 25px; }
+.date-2  { left: 1006px; top: 1271px; width: 330px; height: 26px; }
+.thumb-2 { left: 1563px; top: 1080px; height: 291px; }
+
+/* Event 3 */
+.badge-3 { left: 168px; top: 1450px; height: 38px; }
+.title-3 { left: 168px; top: 1532px; width: 350px; height: 34px; }
+.loc-3   { left: 168px; top: 1599px; width: 350px; height: 24px; }
+.date-3  { left: 168px; top: 1635px; width: 329px; height: 24px; }
+.thumb-3 { left: 723px; top: 1443px; height: 290px; }
+
+/* Event 4 */
+.badge-4 { left: 1006px; top: 1450px; height: 38px; }
+.title-4 { left: 1006px; top: 1532px; width: 350px; height: 34px; }
+.loc-4   { left: 1006px; top: 1599px; width: 350px; height: 24px; }
+.date-4  { left: 1006px; top: 1635px; width: 330px; height: 24px; }
+.thumb-4 { left: 1563px; top: 1443px; height: 290px; }

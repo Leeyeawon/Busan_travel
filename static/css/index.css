@@ -1,0 +1,403 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-size: cover;
+}
+
+.screen {
+  background-color: #ffffff;
+  width: 100%;
+  min-width: 1920px;
+  position: relative;
+}
+
+.screen .group {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 1920px;
+  height: 860px;
+}
+
+.screen .element {
+  top: 195px;
+  left: 95px;
+  width: 726px;
+  height: 384px;
+  aspect-ratio: 1.8;
+  position: absolute;
+  object-fit: cover;
+}
+
+.screen .frame {
+  left: 975px;
+  position: absolute;
+  top: 191px;
+  width: 400px;
+  height: 400px;
+  background-color: #ffffff33;
+  border-radius: 20px;
+  backdrop-filter: blur(2.5px) brightness(108.0%) saturate(100.0%)
+    hue-rotate(7.2deg);
+  -webkit-backdrop-filter: blur(2.5px) brightness(108.0%) saturate(100.0%)
+    hue-rotate(7.2deg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 1px 0 0 rgba(
+      255,
+      255,
+      255,
+      0.32
+    ), inset 0 -1px 1px rgba(0, 0, 0, 0.06), inset -1px 0 1px rgba(
+      0,
+      0,
+      0,
+      0.05
+    );
+}
+
+.screen .text-wrapper {
+  position: absolute;
+  top: calc(50.00% + 65px);
+  left: calc(50.00% - 95px);
+  font-family: "Noto Sans KR-Medium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: -2.00px;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+.screen .img {
+  position: absolute;
+  top: 65px;
+  left: calc(50.00% - 84px);
+  width: 168px;
+  height: 142px;
+  aspect-ratio: 1.18;
+}
+
+.screen .div {
+  left: 1425px;
+  position: absolute;
+  top: 191px;
+  width: 400px;
+  height: 400px;
+  background-color: #ffffff33;
+  border-radius: 20px;
+  backdrop-filter: blur(2.5px) brightness(108.0%) saturate(100.0%)
+    hue-rotate(7.2deg);
+  -webkit-backdrop-filter: blur(2.5px) brightness(108.0%) saturate(100.0%)
+    hue-rotate(7.2deg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 1px 0 0 rgba(
+      255,
+      255,
+      255,
+      0.32
+    ), inset 0 -1px 1px rgba(0, 0, 0, 0.06), inset -1px 0 1px rgba(
+      0,
+      0,
+      0,
+      0.05
+    );
+}
+
+.screen .text-wrapper-2 {
+  position: absolute;
+  top: calc(50.00% - 83px);
+  left: calc(50.00% - 93px);
+  font-family: "Noto Sans KR-Medium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 96px;
+  text-align: center;
+  letter-spacing: -4.80px;
+  line-height: 96px;
+  white-space: nowrap;
+}
+
+.screen .text-wrapper-3 {
+  position: absolute;
+  top: calc(50.00% + 47px);
+  left: calc(50.00% - 46px);
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 400;
+  color: #575757;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: -1.20px;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.screen .text-wrapper-4 {
+  position: absolute;
+  top: calc(50.00% + 81px);
+  left: calc(50.00% - 46px);
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 400;
+  color: #575757;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: -1.20px;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.screen .p {
+  position: absolute;
+  top: 930px;
+  left: 95px;
+  font-family: "Noto Sans KR-Bold", Helvetica;
+  font-weight: 700;
+  color: #559dd5;
+  font-size: 40px;
+  letter-spacing: -1.60px;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+.screen .text-wrapper-5 {
+  position: absolute;
+  top: 2000px;
+  left: 95px;
+  font-family: "Noto Sans KR-Bold", Helvetica;
+  font-weight: 700;
+  color: #559dd5;
+  font-size: 40px;
+  letter-spacing: -1.60px;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+.screen .text-wrapper-6 {
+  position: absolute;
+  top: 1000px;
+  left: 95px;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 400;
+  color: #aeaeae;
+  font-size: 20px;
+  letter-spacing: -0.80px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.screen .text-wrapper-7 {
+  position: absolute;
+  top: 2210px;
+  left: 95px;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 400;
+  color: #aeaeae;
+  font-size: 20px;
+  letter-spacing: -0.80px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.screen .text-wrapper-8 {
+  position: absolute;
+  top: 1580px;
+  left: 1052px;
+  width: 775px;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 400;
+  color: #373737;
+  font-size: 28px;
+  letter-spacing: -1.12px;
+  line-height: 44.8px;
+}
+
+.screen .boogi {
+  position: absolute;
+  top: 2313px;
+  left: 724px;
+  font-family: "Noto Sans KR-Bold", Helvetica;
+  font-weight: 400;
+  color: transparent;
+  font-size: 32px;
+  letter-spacing: -1.28px;
+  line-height: 51.2px;
+}
+
+.screen .span {
+  font-weight: 700;
+  color: #559dd5;
+  letter-spacing: -0.41px;
+}
+
+.screen .text-wrapper-9 {
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  color: #000000;
+  letter-spacing: -0.41px;
+}
+
+.screen .text-wrapper-10 {
+  position: absolute;
+  top: 2445px;
+  left: 717px;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 400;
+  color: #767676;
+  font-size: 28px;
+  letter-spacing: -1.12px;
+  line-height: 44.8px;
+}
+
+.screen .element-2 {
+  position: absolute;
+  top: 1100px;
+  left: 95px;
+  width: 504px;
+  height: 635px;
+  aspect-ratio: 0.79;
+}
+
+.screen .element-3 {
+  position: absolute;
+  top: 1300px;
+  left: 634px;
+  width: 343px;
+  height: 432px;
+  aspect-ratio: 0.79;
+}
+
+.screen .group-2 {
+  position: absolute;
+  top: 1200px;
+  left: 1052px;
+  width: 531px;
+  height: 62px;
+}
+
+.screen .rectangle {
+  width: 529px;
+  height: 62px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: #559dd5;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen .nature-city {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-family: "Noto Sans KR-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #559dd5;
+  font-size: 32px;
+  letter-spacing: -1.28px;
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+.screen .group-3 {
+  position: absolute;
+  top: 1300px;
+  left: 1052px;
+  width: 531px;
+  height: 62px;
+}
+
+.screen .rectangle-2 {
+  width: 529px;
+  height: 62px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.screen .text-wrapper-11 {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 400;
+  color: #d0d0d0;
+  font-size: 32px;
+  letter-spacing: -1.28px;
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+.screen .group-4 {
+  position: absolute;
+  top: 1350px;
+  left: 1052px;
+  width: 531px;
+  height: 62px;
+}
+
+.screen .image {
+  position: absolute;
+  top: 2313px;
+  left: 189px;
+  width: 366px;
+  height: 506px;
+  aspect-ratio: 0.72;
+}
+
+.screen .image-2 {
+  position: absolute;
+  top: 2819px;
+  left: 228px;
+  width: 304px;
+  height: 147px;
+  aspect-ratio: 2.07;
+}
+
+.screen .image-3 {
+  position: absolute;
+  top: 2758px;
+  left: 721px;
+  width: 800px;
+  height: 208px;
+  aspect-ratio: 3.84;
+  object-fit: cover;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 80px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 40px;
+  font-size: 24px;
+  margin-left: 40px;
+  flex: 1;
+  font-family: "Noto Sans KR-Regular", Helvetica;
+  font-weight: 500;
+}
+
+.menu-item {
+  color: #AEAEAE;
+  cursor: pointer;
+}
+
+.menu-item.active {
+  color: #559DD5;
+  font-weight: 700;
+}
+
+.login-button {
+  background: #559DD5;
+  border-radius: 30px;
+  color: #fff;
+  padding: 6px 45px;
+  font-size: 20px;
+  cursor: pointer;
+}
