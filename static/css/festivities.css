@@ -278,3 +278,43 @@ body {
 .loc-4   { left: 1006px; top: 1599px; width: 350px; height: 24px; }
 .date-4  { left: 1006px; top: 1635px; width: 330px; height: 24px; }
 .thumb-4 { left: 1563px; top: 1443px; height: 290px; }
+
+
+/* ✅ 포스터 이미지 전환 모션 */
+.poster {
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+/* 열릴 때 잠깐 강조(줌) */
+.poster.poster-anim {
+  animation: posterPop 260ms ease;
+}
+
+@keyframes posterPop {
+  0% { transform: scale(1); }
+  60% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* ✅ 오버레이 페이드/업 모션 */
+.poster-overlay {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.poster-overlay.is-open {
+  display: block; /* 기존대로 */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 연속 클릭해도 애니 재생되도록 클래스용 */
+.poster-overlay.overlay-anim {
+  animation: overlayIn 240ms ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -5,6 +5,18 @@ app = Flask('Busan_travel')
 def indexhtml():
     return render_template("index.html")
 
+@app.route('/tourist attraction')
+def tourist attractionhtml():
+    return render_template("tourist attraction.html")
+
+@app.route('/festivities')
+def festivitieshtml():
+    return render_template("festivities.html")
+
+@app.route('/index')
+def indexhtml():
+    return render_template("index.html")
+
 @app.route('/method', methods=['GET', 'POST'])
 def method():
     if request.method == 'GET':

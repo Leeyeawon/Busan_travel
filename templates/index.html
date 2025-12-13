@@ -9,13 +9,14 @@
     <form action="/method" method="POST">
 
     <header>
+      <img src="{{ url_for('static', filename='img/로고2 2.png', v=1) }}" class="logo">
       <img src="static/img/로고2 2.png" alt="로고" class="logo">
       <nav class="nav-menu">
-        <span class="menu-item active">메인</span>
-        <span class="menu-item ">대표 관광지</span>
-        <span class="menu-item">여행코스</span>
-        <span class="menu-item">행사·축제</span>
-        <span class="menu-item">교통·주차</span>
+        <span class="menu-item active" href="{{ url_for('index') }}">메인</span>
+        <span class="menu-item " href="{{ url_for('tourist attraction') }}">대표 관광지</span>
+        <span class="menu-item" href="{{ url_for('index') }}">여행코스</span>
+        <span class="menu-item" href="{{ url_for('festivities') }}">행사·축제</span>
+        <span class="menu-item" href="{{ url_for('index') }}">교통·주차</span>
       </nav>
       <div class="login-button">로그인</div>
     </header>
