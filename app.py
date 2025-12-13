@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -8,23 +8,26 @@ app = Flask("Busan_travel")
 # =========================
 # ✅ 너가 수정해야 할 부분 (필수)
 # =========================
-SERVICE_KEY = "여기에_너_서비스키(디코딩키)_넣기"   # TODO
-NX = 98   # TODO: 부산 지역 격자 X
+SERVICE_KEY = "여기에_너_서비스키(디코딩키)_넣기"  # TODO: data.go.kr에서 받은 디코딩키
+NX = 98   # TODO: 부산 지역 격자 X (예: 부산시청/서면 등)
 NY = 76   # TODO: 부산 지역 격자 Y
 
+# 기상청 단기예보(동네예보)
 KMA_URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst"
 
 # 간단 캐시(요청 너무 자주 보내지 않게)
 _cache = {"ts": None, "data": None}
 
+
 def _pick_base_datetime(now_kst: datetime):
     """
     단기예보 발표시각(하루 8회)을 고려해서 base_date/base_time 결정
-    - 너무 최근이면 데이터가 아직 안 올라왔을 수 있어서 45분 정도 여유를 줌
+    - 너무 최근이면 데이터가 아직 안 올라왔을 수 있어서 45분 정도 여유를 둠
     """
     now_kst = now_kst - timedelta(minutes=45)
 
-    times = ["2300","2000","1700","1400","1100","0800","0500","0200"]
+    # 발표 시각(보통 02,05,08,11,14,17,20,23)
+    times = ["2300", "2000", "1700", "1400", "1100", "0800", "0500", "0200"]
     hhmm = now_kst.strftime("%H%M")
 
     for t in times:
@@ -38,10 +41,14 @@ def _pick_base_datetime(now_kst: datetime):
 
 def get_today_temps(nx: int, ny: int):
     """
-    return: (avg, tmax, tmin)  -> 문자열(표시용)
+    return: (avg, tmax, tmin) -> 문자열(표시용)
     - avg: 오늘 TMP(시간별 기온) 평균
     - tmax/tmin: TMX/TMN 있으면 사용, 없으면 TMP로 대체
     """
+    # ✅ 서비스키가 아직 없으면 사이트가 죽지 않고 placeholder 반환
+    if (not SERVICE_KEY) or ("여기에" in SERVICE_KEY):
+        return ("--", "--", "--")
+
     now = datetime.now(ZoneInfo("Asia/Seoul"))
 
     # ✅ 10분 캐시
@@ -62,48 +69,56 @@ def get_today_temps(nx: int, ny: int):
         "ny": ny,
     }
 
-    r = requests.get(KMA_URL, params=params, timeout=10)
-    r.raise_for_status()
-    data = r.json()
+    try:
+        r = requests.get(KMA_URL, params=params, timeout=10)
+        r.raise_for_status()
+        data = r.json()
 
-    items = data["response"]["body"]["items"]["item"]
+        # ✅ 에러 응답 대비(구조가 다를 수 있음)
+        body = data.get("response", {}).get("body", {})
+        items = body.get("items", {}).get("item", [])
+        if not isinstance(items, list):
+            items = []
 
-    tmps = []
-    tmin = None
-    tmax = None
+        tmps = []
+        tmin = None
+        tmax = None
 
-    for it in items:
-        if it.get("fcstDate") != today:
-            continue
+        for it in items:
+            if it.get("fcstDate") != today:
+                continue
 
-        cat = it.get("category")
-        val = it.get("fcstValue")
+            cat = it.get("category")
+            val = it.get("fcstValue")
 
-        if cat == "TMP":      # 시간별 기온
-            try:
-                tmps.append(float(val))
-            except:
-                pass
-        elif cat == "TMN":    # 오늘 최저(제공되면 1개)
-            try:
-                tmin = float(val)
-            except:
-                pass
-        elif cat == "TMX":    # 오늘 최고(제공되면 1개)
-            try:
-                tmax = float(val)
-            except:
-                pass
+            if cat == "TMP":
+                try:
+                    tmps.append(float(val))
+                except Exception:
+                    pass
+            elif cat == "TMN":
+                try:
+                    tmin = float(val)
+                except Exception:
+                    pass
+            elif cat == "TMX":
+                try:
+                    tmax = float(val)
+                except Exception:
+                    pass
 
-    # fallback
-    if tmps:
-        avg = sum(tmps) / len(tmps)
-        if tmin is None:
-            tmin = min(tmps)
-        if tmax is None:
-            tmax = max(tmps)
-    else:
-        # 데이터가 비는 경우(좌표/키/발표시각 문제 가능)
+        # fallback: TMN/TMX 없으면 TMP로 계산
+        if tmps:
+            avg = sum(tmps) / len(tmps)
+            if tmin is None:
+                tmin = min(tmps)
+            if tmax is None:
+                tmax = max(tmps)
+        else:
+            avg, tmin, tmax = None, None, None
+
+    except Exception:
+        # ✅ 네트워크/키/좌표/파싱 오류가 나도 페이지가 죽지 않게 처리
         avg, tmin, tmax = None, None, None
 
     def fmt(x):
@@ -115,20 +130,43 @@ def get_today_temps(nx: int, ny: int):
     return result
 
 
+# =========================
+# Routes
+# =========================
 @app.route("/")
 @app.route("/index")
 def indexhtml():
     avg_temp, tmax, tmin = get_today_temps(NX, NY)
     return render_template("index.html", avg_temp=avg_temp, tmax=tmax, tmin=tmin)
 
-# (다른 페이지들도 필요하면 이런 식으로)
+
 @app.route("/festivities")
 def festivitieshtml():
     return render_template("festivities.html")
 
+
 @app.route("/tourist-attraction")
 def tourist_attractionhtml():
     return render_template("tourist_attraction.html")
+
+@app.route("/traffic")
+def traffichtml():
+    return render_template("traffic.html")
+
+@app.route("/travel-course")
+def travel_coursehtml():
+    return render_template("travel_course.html")
+
+@app.route("/method", methods=["GET", "POST"])
+def method():
+    if request.method == "GET":
+        num = request.args.get("num")
+        name = request.args.get("name")
+        return f"GET으로 전달된 데이터({num}, {name})"
+    else:
+        num = request.form.get("num")
+        name = request.form.get("name")
+        return f"POST로 전달된 데이터({num}, {name})"
 
 
 if __name__ == "__main__":
