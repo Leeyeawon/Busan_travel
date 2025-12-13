@@ -12,7 +12,7 @@ html, body {
 }
 
 body {
-  overflow-x: hidden; /* ✅ 가로 스크롤 방지 */
+  overflow-x: hidden;
   font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
@@ -36,7 +36,6 @@ body {
   min-width: 0;
 }
 
-/* ✅ 기존 문제 원인 제거 */
 .nav-menu {
   display: flex;
   gap: 40px;
@@ -72,10 +71,6 @@ body {
   .logo { height: 34px; }
 }
 
-/* =========================
-   1) “레이아웃 유지 + 비율 축소” 반응형 핵심
-   - 1920 디자인을 그대로 한 장처럼 스케일링
-========================= */
 .scale-wrap {
   --design-w: 1920px;
   --design-h: 1867px;
@@ -87,9 +82,13 @@ body {
   height: calc(var(--design-h) * var(--scale));
   overflow: hidden;
 
-  /* 원본이 좌측 기준이어서 left 정렬 */
   display: flex;
   justify-content: flex-start;
+}
+
+.scale-wrap .design-1920{
+  transform: scale(var(--scale)) translateY(-100px);
+  transform-origin: top left;
 }
 
 .design-1920 {
@@ -319,3 +318,117 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* =========================
+   ✅ FIX: 헤더가 깨지는 문제(중요)
+   - festivities.css의 .logo absolute가 index.html 헤더 로고까지 영향 줌
+   - header 안 로고만 정상 흐름으로 강제
+========================= */
+header .logo{
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  width: auto !important;
+  height: 39px !important;    /* 필요하면 34~45로 조절 */
+  object-fit: contain !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+
+/* ✅ 헤더 레이아웃 안정화(혹시 다른 CSS가 건드려도 유지) */
+header{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 25px 80px !important;   /* index.css랑 맞춰도 됨 */
+}
+
+header .nav-menu{
+  display: flex !important;
+  gap: 40px !important;
+  margin-left: 40px !important;
+  white-space: nowrap !important;
+}
+
+/* =========================
+   ✅ 포스터 오버레이(텍스트) 기본 스타일
+========================= */
+.poster-overlay{
+  position: absolute;
+  width: 467px;
+  height: 679px;
+  display: none;                 /* 기본 숨김 */
+  background: rgba(0,0,0,0.60);
+  box-shadow: 0px 0px 20px 4px rgba(0,0,0,0.25);
+  border-radius: 0px;
+  padding: 24px 22px;
+  color: #fff;
+  z-index: 30;                   /* 포스터 위 */
+}
+
+/* 오버레이 위치 = 포스터 위치와 동일 */
+.overlay-1{ left: 149px; top: 219px; }
+.overlay-2{ left: 727px; top: 219px; }
+.overlay-3{ left: 1305px; top: 219px; }
+
+/* 오버레이 텍스트 스타일 */
+.overlay-title{
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 36px;
+  text-align: center;
+  margin-top: 85px;              /* 너 시안 느낌 맞추기 */
+  margin-bottom: 40px;
+}
+
+.overlay-body{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.overlay-block{
+  margin: 18px 0;
+}
+
+.overlay-block b{
+  font-size: 24px;
+  line-height: 33px;
+}
+
+/* =========================
+   ✅ 모션(요청했던 것 동일)
+========================= */
+
+/* 포스터 이미지 전환 모션 */
+.poster{
+  transition: transform 220ms ease, filter 220ms ease;
+}
+.poster.poster-anim{
+  animation: posterPop 260ms ease;
+}
+@keyframes posterPop{
+  0% { transform: scale(1); }
+  60% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* 오버레이 페이드/업 모션 */
+.poster-overlay{
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+.poster-overlay.is-open{
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.poster-overlay.overlay-anim{
+  animation: overlayIn 240ms ease;
+}
+@keyframes overlayIn{
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

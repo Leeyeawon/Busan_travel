@@ -153,9 +153,29 @@ def tourist_attractionhtml():
 def traffichtml():
     return render_template("traffic.html")
 
+@app.route("/login")
+def loginhtml():
+    return render_template("login.html")
+
 @app.route("/travel-course")
 def travel_coursehtml():
     return render_template("travel_course.html")
+
+@app.route("/travel-course/walk")
+def course_walkhtml():
+    return render_template("course_walk.html")
+
+@app.route("/travel-course/sea")
+def course_seahtml():
+    return render_template("course_sea.html")
+
+@app.route("/travel-course/photo")
+def course_photohtml():
+    return render_template("course_photo.html")
+
+@app.route("/travel-course/hotplace")
+def course_hotplacehtml():
+    return render_template("course_hotplace.html")
 
 @app.route("/method", methods=["GET", "POST"])
 def method():

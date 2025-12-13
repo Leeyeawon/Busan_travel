@@ -1,67 +1,72 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const config = [
-    {
-      posterSel: ".poster-1",
-      overlaySel: ".overlay-1",
-      swappedSrc: "img/광안리어방축제_상세.png",
-    },
-    {
-      posterSel: ".poster-2",
-      overlaySel: ".overlay-2",
-      swappedSrc: "img/국제영화제_상세.png",
-    },
-    {
-      posterSel: ".poster-3",
-      overlaySel: ".overlay-3",
-      swappedSrc: "img/불꽃축제_상세.png",
-    },
-  ];
+  const posters = Array.from(document.querySelectorAll(".js-poster"));
+  const overlays = Array.from(document.querySelectorAll(".js-overlay"));
 
-  const items = config
-    .map((c) => {
-      const poster = document.querySelector(c.posterSel);
-      const overlay = document.querySelector(c.overlaySel);
-      if (!poster || !overlay) return null;
+  // poster-1 -> overlay DOM 찾기
+  function getOverlayFor(poster) {
+    const posterClass = Array.from(poster.classList).find((c) => c.startsWith("poster-"));
+    if (!posterClass) return null;
+    return overlays.find((ov) => ov.dataset.for === posterClass) || null;
+  }
 
-      poster.dataset.originalSrc = poster.getAttribute("src");
-      poster.dataset.open = "0"; // 초기 닫힘
+  function closePoster(poster) {
+    const overlay = getOverlayFor(poster);
+    if (overlay) overlay.classList.remove("is-open");
 
-      return { ...c, poster, overlay };
-    })
-    .filter(Boolean);
+    // 원본 이미지로 복귀
+    const original = poster.dataset.original;
+    if (original) poster.src = original;
 
-  const closeItem = ({ poster, overlay }) => {
-    overlay.classList.remove("is-open");
-    poster.setAttribute("src", poster.dataset.originalSrc);
     poster.dataset.open = "0";
-  };
+  }
 
-  const openItem = ({ poster, overlay, swappedSrc }) => {
-    poster.setAttribute("src", swappedSrc);
-    overlay.classList.add("is-open");
+  function openPoster(poster) {
+    const overlay = getOverlayFor(poster);
+    const swapped = poster.dataset.swapped;
+
+    if (swapped) poster.src = swapped;
+    if (overlay) overlay.classList.add("is-open");
+
     poster.dataset.open = "1";
 
-    // ✅ 애니메이션 재시작(연속 클릭에도 모션 나오게)
+    // ✅ 애니 재시작(연속 클릭에도 모션 나오게)
     poster.classList.remove("poster-anim");
-    overlay.classList.remove("overlay-anim");
+    if (overlay) overlay.classList.remove("overlay-anim");
     void poster.offsetWidth; // reflow
     poster.classList.add("poster-anim");
-    overlay.classList.add("overlay-anim");
-  };
+    if (overlay) overlay.classList.add("overlay-anim");
+  }
 
-  items.forEach((item) => {
-    item.poster.addEventListener("click", () => {
-      const isOpen = item.poster.dataset.open === "1";
+  function togglePoster(poster) {
+    const isOpen = poster.dataset.open === "1";
 
-      if (isOpen) {
-        // ✅ 같은 포스터 다시 누르면 원복(닫힘)
-        closeItem(item);
-        return;
-      }
+    if (isOpen) {
+      closePoster(poster);
+      return;
+    }
 
-      // ✅ 다른 포스터 열려있으면 닫고, 클릭한 것만 열기
-      items.forEach((it) => it !== item && closeItem(it));
-      openItem(item);
+    // 다른 포스터 열려있으면 닫기
+    posters.forEach((p) => {
+      if (p !== poster) closePoster(p);
+    });
+
+    openPoster(poster);
+  }
+
+  // 초기값
+  posters.forEach((p) => (p.dataset.open = "0"));
+
+  // ✅ 포스터 클릭
+  posters.forEach((poster) => {
+    poster.addEventListener("click", () => togglePoster(poster));
+  });
+
+  // ✅ 오버레이 클릭(오버레이가 포스터 위를 덮으므로 “다시 누르면 원복” 동작을 위해 필요)
+  overlays.forEach((overlay) => {
+    overlay.addEventListener("click", () => {
+      const targetPosterClass = overlay.dataset.for; // "poster-1"
+      const poster = posters.find((p) => p.classList.contains(targetPosterClass));
+      if (poster) togglePoster(poster);
     });
   });
 });

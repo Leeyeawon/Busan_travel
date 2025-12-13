@@ -1,0 +1,94 @@
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; background: #fff; }
+body { overflow-x: hidden; font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+.scale-wrap{
+  --design-w: 1920px;
+  --design-h: 993px;
+  --scale: min(1, calc(100vw / var(--design-w)));
+  width: 100%;
+  height: calc(var(--design-h) * var(--scale));
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.design-1920{
+  width: var(--design-w);
+  height: var(--design-h);
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+  transform: scale(var(--scale));
+  transform-origin: top left;
+}
+
+/* 타이틀 */
+.walk-title{ position:absolute; left:95px; top:128px; font-size:40px; font-weight:700; line-height:40px; }
+.walk-sub{ position:absolute; left:95px; top:181px; width:430px; font-size:24px; font-weight:400; line-height:24px; }
+
+/* 우측 카드 */
+.info-card{ position:absolute; left:1107px; top:165px; width:718px; height:707px; background:#F5F5F5; border-radius:30px; }
+.info-title{ position:absolute; left:1167px; top:205px; font-size:24px; font-weight:700; line-height:24px; }
+.info-img{ position:absolute; left:1167px; top:259px; width:598px; height:336px; border-radius:21px; object-fit:cover; }
+.info-addr{ position:absolute; left:1167px; top:625px; font-size:20px; line-height:20px; }
+.info-trans{ position:absolute; left:1167px; top:660px; font-size:20px; line-height:20px; }
+.info-desc{ position:absolute; left:1167px; top:720px; width:609px; color:#434343; font-size:20px; line-height:32px; }
+
+/* 검색바 */
+.search-bar{
+  position:absolute; left:273px; top:905px;
+  width:1374px; height:61px;
+  border-radius:78px; border:1px solid #000;
+  display:flex; align-items:center; gap:14px;
+  padding:0 20px; background:#fff;
+}
+.search-icon{ width:23px; height:23px; border-radius:9999px; flex:0 0 auto; }
+.search-input{ border:0; outline:none; width:100%; font-size:24px; color:#000; }
+.search-input::placeholder{ color:#808080; }
+
+/* 지도 */
+.map-wrap{
+  position:absolute;
+  left:150px; top:200px;
+  width:900px;
+  z-index: 5;
+}
+
+.busan-map{
+  width:100%;
+  min-height: 600px; /* SVG가 height=0처럼 보일 때 대비 */
+}
+
+/* ✅ 인라인으로 들어온 SVG가 화면에 보이도록 */
+.busan-map svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* 툴팁 */
+.tooltip{
+  position:absolute;
+  left:0; top:0;
+  padding:8px 10px;
+  background: rgba(0,0,0,0.75);
+  color:#fff;
+  border-radius:8px;
+  font-size:14px;
+  pointer-events:none;
+  opacity:0;
+  transform: translateY(4px);
+  transition: opacity .12s ease, transform .12s ease;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.is-selected{
+  filter: drop-shadow(0 2px 8px rgba(85,157,213,0.35));
+  stroke: #559DD5 !important;
+  stroke-width: 3 !important;
+}

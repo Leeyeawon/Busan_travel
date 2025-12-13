@@ -1,0 +1,130 @@
+/* =========================
+   0) Base
+========================= */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* =========================
+   1) 1920 디자인을 스케일링해서 반응형 유지
+========================= */
+.scale-wrap.travel-course{
+  --design-w: 1920px;
+  --design-h: 900px;
+
+  --scale: min(1, calc(100vw / var(--design-w)));
+
+  width: 100%;
+  height: calc(var(--design-h) * var(--scale));
+  overflow: hidden;
+
+  display: flex;
+  justify-content: flex-start;
+}
+
+.scale-wrap .design-1920{
+  transform: scale(var(--scale)) translateY(-100px);
+  transform-origin: top left;
+}
+
+.design-1920{
+  width: var(--design-w);
+  height: var(--design-h);
+  position: relative;
+  background: #fff;
+
+  transform: scale(var(--scale));
+  transform-origin: top left;
+}
+
+/* =========================
+   2) Title
+========================= */
+.tc-title{
+  position: absolute;
+  left: 95px;
+  top: 125px;
+  color: #000;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+/* =========================
+   3) Cards (4)
+========================= */
+.tc-card{
+  position: absolute;
+  width: 847px;
+  height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #F3F3F3;
+  border: 1px solid #828282;
+}
+
+.tc-card-img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tc-card-dim{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.50);
+  backdrop-filter: blur(1.5px);
+}
+
+.tc-card-main{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 144px;
+  text-align: center;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.tc-card-sub{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 191px;
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+  padding: 0 20px;
+}
+
+/* 카드 위치(원본 좌표 유지) */
+.card-1{ left: 95px;  top: 190px; }
+.card-2{ left: 978px; top: 190px; }
+.card-3{ left: 95px;  top: 586px; }
+.card-4{ left: 978px; top: 586px; }
+
+/* 살짝 모션 */
+.tc-card{
+  transition: transform 220ms ease, filter 220ms ease;
+}
+.tc-card:hover{
+  transform: scale(1.01);
+  filter: brightness(1.02);
+}

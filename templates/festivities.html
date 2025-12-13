@@ -11,14 +11,34 @@
   <div class="scale-wrap">
     <div class="design-1920">
 
-      <img class="poster poster-1" src="{{ url_for('static', filename='img/광안리어방축제_포스터_(1) 1.png') }}" alt="광안리 어방축제" />
-      <img class="poster poster-2" src="{{ url_for('static', filename='img/국제영화제 1.png') }}" alt="부산국제영화제(BIFF)" />
-      <img class="poster poster-3" src="{{ url_for('static', filename='img/불꽃 7.png') }}" alt="부산불꽃축제" />
+      <img
+        class="poster poster-1 js-poster"
+        src="{{ url_for('static', filename='img/festivities/광안리어방축제_포스터_(1) 1.png') }}"
+        data-original="{{ url_for('static', filename='img/festivities/광안리어방축제_포스터_(1) 1.png') }}"
+        data-swapped="{{ url_for('static', filename='img/festivities/어방 2.png') }}"
+        alt="광안리 어방축제"
+      />
+
+      <img
+        class="poster poster-2 js-poster"
+        src="{{ url_for('static', filename='img/국제영화제 1.png') }}"
+        data-original="{{ url_for('static', filename='img/festivities/국제영화제 1.png') }}"
+        data-swapped="{{ url_for('static', filename='img/festivities/국제영화 2.png') }}"
+        alt="부산국제영화제(BIFF)"
+      />
+
+      <img
+        class="poster poster-3 js-poster"
+        src="{{ url_for('static', filename='img/festivities/불꽃 7.png') }}"
+        data-original="{{ url_for('static', filename='img/festivities/불꽃 7.png') }}"
+        data-swapped="{{ url_for('static', filename='img/festivities/불꽃축제 5.png') }}"
+        alt="부산불꽃축제"
+      />
 
       <div class="page-title">부산 대표 축제를 만나보세요!</div>
 
       <div class="poster-caption caption-1">광안리 어방축제</div>
-      <div class="poster-overlay overlay-1" data-for="poster-1">
+      <div class="poster-overlay overlay-1 js-overlay" data-for="poster-1">
         <div class="overlay-title">광안리 어방축제</div>
         <div class="overlay-body">
           <div class="overlay-block"><b>[장소]</b><br/>광안리해변 · 수영구 일대</div>
@@ -29,7 +49,7 @@
       </div>
 
       <div class="poster-caption caption-2">부산국제영화제(BIFF)</div>
-      <div class="poster-overlay overlay-2" data-for="poster-2">
+      <div class="poster-overlay overlay-2 js-overlay" data-for="poster-2">
         <div class="overlay-title">부산국제영화제(BIFF)</div>
         <div class="overlay-body">
           <div class="overlay-block"><b>[장소]</b><br/>영화의전당 · 센텀시티 일대</div>
@@ -40,7 +60,7 @@
       </div>
 
       <div class="poster-caption caption-3">부산불꽃축제</div>
-      <div class="poster-overlay overlay-3" data-for="poster-3">
+      <div class="poster-overlay overlay-3 js-overlay" data-for="poster-3">
         <div class="overlay-title">부산불꽃축제</div>
         <div class="overlay-body">
           <div class="overlay-block"><b>[장소]</b><br/>광안리해변 · 광안대교 일대</div>
@@ -59,25 +79,25 @@
       <div class="event-title title-1">부산국제매직페스티벌</div>
       <div class="event-loc loc-1">부산광역시 동구</div>
       <div class="event-date date-1">2025.04.12(토)~ 2025.12.14(일)</div>
-      <img class="event-thumb thumb-1" src="{{ url_for('static', filename='img/매직 1.png') }}" alt="부산국제매직페스티벌 썸네일" />
+      <img class="event-thumb thumb-1" src="{{ url_for('static', filename='img/festivities/매직 1.png') }}" alt="부산국제매직페스티벌 썸네일" />
 
       <div class="badge badge-2"><span>행사중</span></div>
       <div class="event-title title-2">광안리 M(Marvelous) 드론 라이트쇼</div>
       <div class="event-loc loc-2">부산광역시 수영구</div>
       <div class="event-date date-2">2025.01.01(수)~ 2025.12.31(수)</div>
-      <img class="event-thumb thumb-2" src="{{ url_for('static', filename='img/드론 1.png') }}" alt="드론 라이트쇼 썸네일" />
+      <img class="event-thumb thumb-2" src="{{ url_for('static', filename='img/festivities/드론 1.png') }}" alt="드론 라이트쇼 썸네일" />
 
       <div class="badge badge-3"><span>행사중</span></div>
       <div class="event-title title-3">광복로 겨울빛 트리축제</div>
       <div class="event-loc loc-3">부산광역시 중구 광복로패션거리</div>
       <div class="event-date date-3">2025.12.05(금)~ 2026.02.22(일)</div>
-      <img class="event-thumb thumb-3" src="{{ url_for('static', filename='img/트리 1.png') }}" alt="광복로 트리축제 썸네일" />
+      <img class="event-thumb thumb-3" src="{{ url_for('static', filename='img/festivities/트리 1.png') }}" alt="광복로 트리축제 썸네일" />
 
       <div class="badge badge-4"><span>D-7</span></div>
       <div class="event-title title-4">온천천 빛 축제</div>
       <div class="event-loc loc-4">부산광역시 동래구 온천천</div>
       <div class="event-date date-4">2025.12.19(금)~ 2026.02.01(일)</div>
-      <img class="event-thumb thumb-4" src="{{ url_for('static', filename='img/온천천 1.png') }}" alt="온천천 빛 축제 썸네일" />
+      <img class="event-thumb thumb-4" src="{{ url_for('static', filename='img/festivities/온천천 1.png') }}" alt="온천천 빛 축제 썸네일" />
 
     </div>
   </div>

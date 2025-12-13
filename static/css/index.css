@@ -21,7 +21,7 @@ body {
 }
 
 .screen .element {
-  top: 195px;
+  top: 135px;
   left: 95px;
   width: 726px;
   height: 384px;
@@ -33,7 +33,7 @@ body {
 .screen .frame {
   left: 975px;
   position: absolute;
-  top: 191px;
+  top: 131px;
   width: 400px;
   height: 400px;
   background-color: #ffffff33;
@@ -82,7 +82,7 @@ body {
 .screen .div {
   left: 1425px;
   position: absolute;
-  top: 191px;
+  top: 131px;
   width: 400px;
   height: 400px;
   background-color: #ffffff33;
@@ -162,7 +162,7 @@ body {
 
 .screen .text-wrapper-5 {
   position: absolute;
-  top: 2000px;
+  top: 1850px;
   left: 95px;
   font-family: "Noto Sans KR-Bold", Helvetica;
   font-weight: 700;
@@ -188,7 +188,7 @@ body {
 
 .screen .text-wrapper-7 {
   position: absolute;
-  top: 2210px;
+  top: 1920px;
   left: 95px;
   font-family: "Noto Sans KR-Regular", Helvetica;
   font-weight: 400;
@@ -214,7 +214,7 @@ body {
 
 .screen .boogi {
   position: absolute;
-  top: 2313px;
+  top: 2020px;
   left: 724px;
   font-family: "Noto Sans KR-Bold", Helvetica;
   font-weight: 400;
@@ -238,8 +238,8 @@ body {
 
 .screen .text-wrapper-10 {
   position: absolute;
-  top: 2445px;
-  left: 717px;
+  top: 2150px;
+  left: 740px;
   font-family: "Noto Sans KR-Regular", Helvetica;
   font-weight: 400;
   color: #767676;
@@ -340,7 +340,7 @@ body {
 
 .screen .image {
   position: absolute;
-  top: 2313px;
+  top: 2050px;
   left: 189px;
   width: 366px;
   height: 506px;
@@ -349,7 +349,7 @@ body {
 
 .screen .image-2 {
   position: absolute;
-  top: 2819px;
+  top: 2550px;
   left: 228px;
   width: 304px;
   height: 147px;
@@ -358,7 +358,7 @@ body {
 
 .screen .image-3 {
   position: absolute;
-  top: 2758px;
+  top: 2480px;
   left: 721px;
   width: 800px;
   height: 208px;
@@ -400,4 +400,25 @@ header {
   padding: 6px 45px;
   font-size: 20px;
   cursor: pointer;
+}
+
+/* =========================
+   ✅ 푸터가 "스크롤 최하단"에 오도록 하는 핵심
+   - absolute 배치 화면(.screen)이 문서 높이를 만들게 해줌
+========================= */
+
+/* 세로 스크롤 막는 코드가 있으면 제거/수정 */
+body { 
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.screen{
+  transform-origin: top center;
+}
+
+/* ✅ 이 값이 "푸터가 내려갈 만큼의 높이"야.
+   화면 보고 부족하면 숫자만 늘리면 됨. (예: 2200 → 2600) */
+.screen-spacer{
+  height: 3000px;      /* TODO: 필요시 조절 */
 }

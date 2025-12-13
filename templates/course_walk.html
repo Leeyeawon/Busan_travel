@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+
+{% block title %}산책하러 가기{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/course_walk.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="scale-wrap">
+  <div class="design-1920">
+
+    <div class="walk-sub">느긋하게 걷고 싶은 여행자를 위한 힐링 코스</div>
+    <div class="walk-title">산책하러 가기</div>
+
+    <div class="info-card"></div>
+    <div id="cardTitle" class="info-title">해운대 미포–해월전망대 해안 산책길</div>
+    <img id="cardImg" class="info-img"
+      src="{{ url_for('static', filename='img/walk/산책-해운대 1.png') }}"
+      alt="코스 이미지" />
+    <div id="cardAddr" class="info-addr">부산 해운대구 달맞이길62번길 13</div>
+    <div id="cardTrans" class="info-trans">중동역에서 걸어서 18분</div>
+    <div id="cardDesc" class="info-desc">
+      넓게 펼쳐진 바다를 옆에 두고 나무 데크길을 따라 걸을 수 있는 부산 대표 산책 코스...
+    </div>
+
+    <div class="search-bar" role="search" aria-label="산책 지역 검색">
+      <img class="search-icon" src="{{ url_for('static', filename='img/walk/Group 164.png') }}" alt="" />
+      <input id="regionSearch" class="search-input" type="text"
+        placeholder="산책하고 싶은 지역명 검색" autocomplete="off" />
+    </div>
+
+    <div id="mapWrap" class="map-wrap">
+      <div id="mapContainer"
+        class="busan-map"
+        data-svg-url="{{ url_for('static', filename='img/map/busan_map.svg') }}"
+        aria-label="부산 지도"></div>
+
+      <div id="tooltip" class="tooltip" aria-hidden="true"></div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <!-- ✅ 삽입 확인용 (나중에 지워도 됨) -->
+  <script>console.log("✅ course_walk template scripts block OK");</script>
+
+  <script defer src="{{ url_for('static', filename='js/course_walk.js') }}"></script>
+{% endblock %}

@@ -1,5 +1,61 @@
 {% extends "index.html" %}
+
 {% block title %}여행코스{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/travel_course.css') }}">
+{% endblock %}
+
 {% block content %}
-<h1 style="padding:40px;">여행코스 페이지 준비중</h1>
+  <div class="scale-wrap travel-course">
+    <div class="design-1920">
+
+      <!-- 타이틀 -->
+      <div class="tc-title">원하시는 여행 스타일을 선택해주세요!</div>
+
+      <!-- 4개 카드 (2x2) -->
+      <div class="tc-card card-1" data-href="{{ url_for('course_walkhtml') }}">
+        <img class="tc-card-img" src="{{ url_for('static', filename='img/travel_course/산책 2.png') }}" alt="산책 코스 이미지">
+        <div class="tc-card-dim"></div>
+        <div class="tc-card-sub">느긋하게 걷고 싶은 여행자를 위한 힐링 코스</div>
+        <div class="tc-card-main">산책하러 가기</div>
+      </div>
+
+      
+      <div class="tc-card card-2" data-href="{{ url_for('course_photohtml') }}">
+        <img class="tc-card-img" src="{{ url_for('static', filename='img/travel_course/사진 1.png') }}" alt="사진 코스 이미지">
+        <div class="tc-card-dim"></div>
+        <div class="tc-card-sub">감성 사진·인생샷을 남기기 좋은 장소</div>
+        <div class="tc-card-main">사진 찍으러 가기</div>
+      </div>
+
+      <div class="tc-card card-3" data-href="{{ url_for('course_seahtml') }}">
+        <img class="tc-card-img" src="{{ url_for('static', filename='img/travel_course/바다 1.png') }}" alt="바다 코스 이미지">
+        <div class="tc-card-dim"></div>
+        <div class="tc-card-sub">부산의 해안 풍경을 가장 잘 느낄 수 있는 명소들</div>
+        <div class="tc-card-main">바다 보러 가기</div>
+      </div>
+
+      <div class="tc-card card-4" data-href="{{ url_for('course_hotplacehtml') }}">
+        <img class="tc-card-img" src="{{ url_for('static', filename='img/travel_course/핫플 1.png') }}" alt="핫플 코스 이미지">
+        <div class="tc-card-dim"></div>
+        <div class="tc-card-sub">트렌디한 거리와 쇼핑, 맛집, 카페가 모여 있는 지역</div>
+        <div class="tc-card-main">핫플 구경하러 가기</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 카드 클릭 이동 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".tc-card[data-href]").forEach(el => {
+        el.style.cursor = "pointer";
+        el.addEventListener("click", () => {
+          window.location.href = el.dataset.href;
+        });
+      });
+    });
+  </script>
 {% endblock %}
