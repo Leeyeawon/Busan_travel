@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+
+{% block title %}부산 대표 관광지{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tourist_attraction.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="title-section">
+  <p class="subtitle">어디 가야할지 고민일 때 보는</p>
+  <h1 class="main-title">부산 대표 관광지</h1>
+</section>
+
+<!-- ✅ 광안리 -->
+<section class="place" id="gwanganri">
+  <img src="{{ url_for('static', filename='img/places/gwanganri.jpg') }}" alt="광안리" class="place-img">
+
+  <div class="place-content">
+    <h2>광안리</h2>
+
+    <div class="tags">
+      <span>#대교야경</span>
+      <span>#감성바다</span>
+      <span>#카페해변거리</span>
+    </div>
+
+    <p class="description">
+      광안리는 부산을 대표하는 감성 해변 지역으로, 탁 트인 바다와 광안대교의 환상적인 야경이 공존하는 곳입니다.
+    </p>
+
+    <div class="info">
+      <p><strong>[위치]</strong> 부산광역시 수영구 광안해변로</p>
+      <p><strong>[볼거리]</strong> 광안대교 야경 · 해변 산책로 · 카페거리</p>
+      <p><strong>[추천 시간]</strong> 일몰~밤</p>
+      <p><strong>[추천 활동]</strong><br>
+        광안대교 야경 감상<br>
+        광안리 해변 산책<br>
+        민락수변공원 피크닉
+      </p>
+    </div>
+
+    <!-- ✅ 지도 보기: 버튼 클릭 시 구글맵(새 탭) / 원하면 카카오맵으로도 변경 가능 -->
+    <a class="map-button"
+       href="https://www.google.com/maps/search/?api=1&query=광안리해수욕장"
+       target="_blank" rel="noopener">지도 보기</a>
+  </div>
+</section>
+
+<!-- ✅ 해운대 (예시 추가) -->
+<section class="place" id="haeundae">
+  <img src="{{ url_for('static', filename='img/places/haeundae.jpg') }}" alt="해운대" class="place-img">
+
+  <div class="place-content">
+    <h2>해운대</h2>
+
+    <div class="tags">
+      <span>#대표해변</span>
+      <span>#야경</span>
+      <span>#맛집</span>
+    </div>
+
+    <p class="description">
+      해운대는 부산을 대표하는 해변으로, 사계절 내내 산책과 먹거리, 야경을 즐기기 좋은 명소입니다.
+    </p>
+
+    <div class="info">
+      <p><strong>[위치]</strong> 부산광역시 해운대구 해운대해변로</p>
+      <p><strong>[볼거리]</strong> 해운대 해수욕장 · 더베이101 · 동백섬</p>
+      <p><strong>[추천 시간]</strong> 오후~밤</p>
+      <p><strong>[추천 활동]</strong><br>
+        해변 산책<br>
+        동백섬 산책로<br>
+        더베이101 야경
+      </p>
+    </div>
+
+    <a class="map-button"
+       href="https://www.google.com/maps/search/?api=1&query=해운대해수욕장"
+       target="_blank" rel="noopener">지도 보기</a>
+  </div>
+</section>
+
+{% endblock %}

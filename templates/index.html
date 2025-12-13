@@ -1,79 +1,143 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="static/css/index.css" />
-  </head>
-  <body>
-    <form action="/method" method="POST">
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <header>
-      <img src="{{ url_for('static', filename='img/로고2 2.png', v=1) }}" class="logo">
-      <img src="static/img/로고2 2.png" alt="로고" class="logo">
-      <nav class="nav-menu">
-        <span class="menu-item active" href="{{ url_for('index') }}">메인</span>
-        <span class="menu-item " href="{{ url_for('tourist attraction') }}">대표 관광지</span>
-        <span class="menu-item" href="{{ url_for('index') }}">여행코스</span>
-        <span class="menu-item" href="{{ url_for('festivities') }}">행사·축제</span>
-        <span class="menu-item" href="{{ url_for('index') }}">교통·주차</span>
-      </nav>
-      <div class="login-button">로그인</div>
-    </header>
-    
-    <div class="screen">
-      <img class="group" src="img/Group 17.png" />
-      <img class="element" src="img/로고2 1.png" />
-      <div class="frame">
-        <div class="text-wrapper">구름 낀 하늘</div>
-        <img class="img" src="img/1555512 1.png" />
-      </div>
-      <div class="div">
-        <div class="text-wrapper-2">16˚C</div>
-        <div class="text-wrapper-3">최대:18˚C</div>
-        <div class="text-wrapper-4">최대:12˚C</div>
-      </div>
-      <p class="p">다채로운 반전의 대조적 매력을 가진 도시, 부산</p>
-      <p class="text-wrapper-6">Busan, a city of vibrant contrasts and unexpected charm</p>
-      <img class="element-2" src="img/메인-해동용궁사 1.png" />
-      <img class="element-3" src="img/시티 1.png" />
-      <div class="group-2">
-        <div class="rectangle"></div>
-        <div class="nature-city">Nature &amp; City</div>
-      </div>
-      <div class="group-3">
-        <div class="rectangle-2"></div>
-        <div class="text-wrapper-11">Local &amp; Global</div>
-      </div>
-      <div class="group-4">
-        <div class="rectangle-2"></div>
-        <div class="text-wrapper-11">Passionate &amp; Humane</div>
-        <p class="text-wrapper-11">Cluster Hub &amp; Art, Cultural Mecca</p>
-      </div>
-      <p class="text-wrapper-8">
-        여행부터 비즈니스까지 모든 경험이 만족스러운 살기 좋은 도시 온갖 <br />다채로운 것들이 공존하는 곳 부산에서
-        당신이 상상하는 것 이상의 반전 매력을 느껴보세요.
-      </p>
+  <title>{% block title %}메인{% endblock %}</title>
 
-      <p class="text-wrapper-5">부산을 닮은 귀여운 갈매기, 부기</p>
-      <p class="text-wrapper-7">Boogi, the adorable seagull that embodies the spirit of Busan</p>
-      <p class="boogi">
-        <span class="span">부기(Boogi)</span>
-        <span class="text-wrapper-9"
-          >는 부산을 상징하는 갈매기를 모티브로 만든부산 대표 관광 캐릭터로, 활기찬 에너지와 따뜻한 매력을 가진 부산의
-          얼굴입니다</span>
-      </p>
-      <p class="text-wrapper-10">
-        • 부산의 바다와 하늘을 담은 블루·화이트 컬러<br />• 밝고 친근한 이미지로 다양한 관광 정보 전달<br />• 부산 관광
-        기념품, 안내 콘텐츠 등에서 활약하는 공식 마스코트
-      </p>
-      
+  <!-- ✅ 기본(메인) CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
 
-      <img class="image" src="img/boogi.png" />
-      <img class="image-2" src="img/boogi_text.png" />
-      <img class="element-2" src="img/1.png" />
-      <img class="image-3" src="img/boogi_bady.png" />
+  <!-- ✅ 자식 페이지가 추가 CSS 넣는 자리 -->
+  {% block head %}{% endblock %}
+</head>
 
+<body>
+  <!-- ✅ (주의) form이 페이지 전체를 감싸야 하는 이유가 없다면 제거 추천 -->
+  <!-- 필요하면 action/method 유지하고, 필요한 입력 요소만 form 안으로 옮겨 -->
+  <!-- <form action="/method" method="POST"> -->
+
+  <header>
+    <!-- ✅ 로고 1개만 사용 -->
+    <img src="{{ url_for('static', filename='img/로고2 2.png') }}" alt="로고" class="logo">
+
+    <nav class="nav-menu">
+      <!-- ✅ span 유지 + data-href로 이동 -->
+      <span class="menu-item {% if request.endpoint=='indexhtml' %}active{% endif %}"
+            data-href="{{ url_for('indexhtml') }}">메인</span>
+
+      <span class="menu-item {% if request.endpoint=='tourist_attractionhtml' %}active{% endif %}"
+            data-href="{{ url_for('tourist_attractionhtml') }}">대표 관광지</span>
+
+      <span class="menu-item {% if request.endpoint=='travel_coursehtml' %}active{% endif %}"
+            data-href="{{ url_for('travel_coursehtml') }}">여행코스</span>
+
+      <span class="menu-item {% if request.endpoint=='festivitieshtml' %}active{% endif %}"
+            data-href="{{ url_for('festivitieshtml') }}">행사·축제</span>
+
+      <span class="menu-item {% if request.endpoint=='traffichtml' %}active{% endif %}"
+            data-href="{{ url_for('traffichtml') }}">교통·주차</span>
+    </nav>
+
+    <div class="login-button" data-href="{{ url_for('loginhtml') }}">로그인</div>
+  </header>
+
+  <!-- ✅ 공통: 메뉴/로고/로그인 클릭 이동 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("[data-href]").forEach(el => {
+        el.style.cursor = "pointer";
+        el.addEventListener("click", () => {
+          window.location.href = el.dataset.href;
+        });
+      });
+    });
+  </script>
+
+  <!-- ✅ 자식 페이지가 내용을 끼워넣는 자리 -->
+  {% block content %}
+
+  <!-- ====== 여기부터는 '메인 페이지 기본 내용' ====== -->
+  <div class="screen">
+    <img class="group" src="{{ url_for('static', filename='img/Group 17.png') }}" />
+    <img class="element" src="{{ url_for('static', filename='img/로고2 1.png') }}" />
+    <div class="frame">
+      <div class="text-wrapper">구름 낀 하늘</div>
+      <img class="img" src="{{ url_for('static', filename='img/1555512 1.png') }}" />
     </div>
-  </body>
+    <div class="div">
+      <div class="text-wrapper-2">{{ avg_temp }}˚C</div>
+      <div class="text-wrapper-3">최대: {{ tmax }}˚C</div>
+      <div class="text-wrapper-4">최저: {{ tmin }}˚C</div>
+    </div>
+    <p class="p">다채로운 반전의 대조적 매력을 가진 도시, 부산</p>
+    <p class="text-wrapper-6">Busan, a city of vibrant contrasts and unexpected charm</p>
+    <img class="element-2" src="{{ url_for('static', filename='img/메인-해동용궁사 1.png') }}" />
+    <img class="element-3" src="{{ url_for('static', filename='img/시티 1.png') }}" />
+    <div class="group-2">
+      <div class="rectangle"></div>
+      <div class="nature-city">Nature &amp; City</div>
+    </div>
+    <div class="group-3">
+      <div class="rectangle-2"></div>
+      <div class="text-wrapper-11">Local &amp; Global</div>
+    </div>
+    <div class="group-4">
+      <div class="rectangle-2"></div>
+      <div class="text-wrapper-11">Passionate &amp; Humane</div>
+      <p class="text-wrapper-11">Cluster Hub &amp; Art, Cultural Mecca</p>
+    </div>
+    <p class="text-wrapper-8">
+      여행부터 비즈니스까지 모든 경험이 만족스러운 살기 좋은 도시 온갖 <br />다채로운 것들이 공존하는 곳 부산에서
+      당신이 상상하는 것 이상의 반전 매력을 느껴보세요.
+    </p>
+
+    <p class="text-wrapper-5">부산을 닮은 귀여운 갈매기, 부기</p>
+    <p class="text-wrapper-7">Boogi, the adorable seagull that embodies the spirit of Busan</p>
+    <p class="boogi">
+      <span class="span">부기(Boogi)</span>
+      <span class="text-wrapper-9">
+        는 부산을 상징하는 갈매기를 모티브로 만든부산 대표 관광 캐릭터로, 활기찬 에너지와 따뜻한 매력을 가진 부산의 얼굴입니다
+      </span>
+    </p>
+    <p class="text-wrapper-10">
+      • 부산의 바다와 하늘을 담은 블루·화이트 컬러<br />
+      • 밝고 친근한 이미지로 다양한 관광 정보 전달<br />
+      • 부산 관광 기념품, 안내 콘텐츠 등에서 활약하는 공식 마스코트
+    </p>
+
+    <img class="image" src="{{ url_for('static', filename='img/boogi.png') }}" />
+    <img class="image-2" src="{{ url_for('static', filename='img/boogi_text.png') }}" />
+    <img class="element-2" src="{{ url_for('static', filename='img/1.png') }}" />
+    <img class="image-3" src="{{ url_for('static', filename='img/boogi_bady.png') }}" />
+  </div>
+  <!-- ====== 메인 페이지 기본 내용 끝 ====== -->
+
+  {% endblock %}
+ 
+  <!-- ✅ 공통 푸터 (모든 페이지 하단 공통) -->
+  <footer class="site-footer">
+    <div style="width: 1920px; height: 478px; position: relative">
+      <div style="width: 1920px; height: 478px; left: 0px; top: 0px; position: absolute; background: #F0F0F0"></div>
+      <div style="left: 94px; top: 412px; position: absolute; color: #434343; font-size: 24px; font-family: Noto Sans KR; font-weight: 400; line-height: 38.40px; word-wrap: break-word">개인정보처리방침           |           이용약관           |           사이트맵</div>
+      <div style="left: 1330px; top: 410px; position: absolute; color: #434343; font-size: 24px; font-family: Noto Sans KR; font-weight: 400; line-height: 38.40px; word-wrap: break-word">© 2025 BUSAN TRAVEL MATE. All rights reserved.</div>
+      <div style="left: 95px; top: 155px; position: absolute"><span style="color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 700; line-height: 32px; word-wrap: break-word">주소</span><span style="color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 400; line-height: 32px; word-wrap: break-word"> : 부산광역시 00구 00로 00번길 <br/>📩 </span><span style="color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 700; line-height: 32px; word-wrap: break-word">문의 이메일</span><span style="color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 400; line-height: 32px; word-wrap: break-word"> : help@busantravelmate.com    ☎️ </span><span style="color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 700; line-height: 32px; word-wrap: break-word">문의 전화</span><span style="color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 400; line-height: 32px; word-wrap: break-word"> : 010-1234-5678 (평일 10:00~18:00)</span></div>
+
+      <!-- ✅ 수정: placehold.co 대신 실제 로고 이미지로 바꾸기 -->
+      <img style="width: 231px; height: 54px; left: 95px; top: 58px; position: absolute"
+           src="{{ url_for('static', filename='img/footer_logo.png') }}" alt="푸터 로고" />
+
+      <!-- ✅ 수정: placehold.co 대신 실제 아이콘/배너 이미지로 바꾸기 -->
+      <img style="width: 240px; height: 63px; left: 1583px; top: 263px; position: absolute"
+           src="{{ url_for('static', filename='img/footer_badge.png') }}" alt="푸터 배지" />
+
+      <div style="left: 1592px; top: 95px; position: absolute; color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 700; line-height: 32px; word-wrap: break-word">이용안내</div>
+      <div style="left: 1592px; top: 147px; position: absolute; color: #434343; font-size: 20px; font-family: Noto Sans KR; font-weight: 700; line-height: 32px; word-wrap: break-word">찾아오시는 길</div>
+      <div style="width: 11px; height: 16px; left: 1716px; top: 155px; position: absolute; outline: 2px #434343 solid; outline-offset: -1px"></div>
+      <div style="width: 11px; height: 16px; left: 1677px; top: 103px; position: absolute; outline: 2px #434343 solid; outline-offset: -1px"></div>
+    </div>
+  </footer>
+  <!-- </form> -->
+</body>
 </html>
