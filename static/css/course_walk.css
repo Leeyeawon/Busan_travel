@@ -28,7 +28,7 @@ body { overflow-x: hidden; font-family: "Noto Sans KR", system-ui, -apple-system
 
 /* 타이틀 */
 .walk-title{ position:absolute; left:95px; top:128px; font-size:40px; font-weight:700; line-height:40px; }
-.walk-sub{ position:absolute; left:95px; top:181px; width:430px; font-size:24px; font-weight:400; line-height:24px; }
+.walk-sub{ position:absolute; left:95px; top:181px; width:430px; font-size:20px; font-weight:400; line-height:24px; }
 
 /* 우측 카드 */
 .info-card{ position:absolute; left:1107px; top:165px; width:718px; height:707px; background:#F5F5F5; border-radius:30px; }
@@ -87,8 +87,46 @@ body { overflow-x: hidden; font-family: "Noto Sans KR", system-ui, -apple-system
   white-space: nowrap;
 }
 
-.is-selected{
-  filter: drop-shadow(0 2px 8px rgba(85,157,213,0.35));
+/* ✅ 클릭 가능한 4개 구: 기본 상태(흰색 + 파란 외곽선) */
+.gu-focus{
+  fill: #ffffff !important;
   stroke: #559DD5 !important;
-  stroke-width: 3 !important;
+  stroke-width: 2 !important;
+  cursor: pointer;
 }
+
+/* ✅ 선택된 구: 진한 파랑으로 채움 */
+.gu-focus.is-selected{
+  fill: #559DD5 !important;
+  stroke: #559DD5 !important;
+  stroke-width: 2 !important;
+}
+
+/* (선택) 선택된 구에 살짝 그림자 */
+.gu-focus.is-selected{
+  filter: drop-shadow(0 2px 8px rgba(85,157,213,0.35));
+}
+
+/* ✅ 기본(선택 안 됨) 텍스트는 회색 */
+.gu-focus text{
+  fill: #D0D0D0 !important;
+}
+
+/* ✅ 선택된 구는 텍스트 흰색 */
+.gu-focus.is-selected text{
+  fill: #ffffff !important;
+}
+
+/* ✅ 해운대구는 "미클릭(선택 X)" 상태일 때만 텍스트 파란색 */
+.gu-default:not(.is-selected) text{
+  fill: #559DD5 !important;
+}
+
+
+.scale-wrap .design-1920{
+  transform: scale(var(--scale)) translateY(-120px);
+  transform-origin: top left;
+}
+
+
+

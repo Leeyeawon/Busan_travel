@@ -1,125 +1,148 @@
-body {
-  margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-  background: #fff;
-  color: #434343;
-}
-
-.container {
-  width: 100%;
-  max-width: 1920px;
+.ta-page{
+  width: min(1720px, calc(100% - 172px));
   margin: 0 auto;
-  padding: 0;
+  padding: 48px 0 120px;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 25px 80px;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 40px;
-  font-size: 24px;
-  margin-left: 40px;
-  flex: 1;
-  font-family: "Noto Sans KR-Regular", Helvetica;
-  font-weight: 500;
-}
-
-.menu-item {
-  color: #AEAEAE;
-  cursor: pointer;
-}
-
-.menu-item.active {
-  color: #559DD5;
-  font-weight: 700;
-}
-
-.login-button {
-  background: #559DD5;
-  border-radius: 30px;
-  color: #fff;
-  padding: 6px 45px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.title-section {
-  text-align: left;
-  padding: 40px 86px;
-}
-
-.subtitle {
+/* 타이틀 */
+.ta-title{ margin-top: 20px; }
+.ta-sub{
   font-size: 24px;
   font-weight: 300;
-  margin-bottom: 10px;
+  line-height: 24px;
+  color: #000;
 }
-
-.main-title {
+.ta-main{
+  margin-top: 14px;
   font-size: 40px;
   font-weight: 500;
+  line-height: 40px;
+  color: #000;
 }
 
-.place {
-  display: flex;
-  margin: 40px 86px;
-  gap: 40px;
+/* 섹션(카드) */
+.ta-section{
+  display: grid;
+  grid-template-columns: 860px 1fr;
+  gap: 64px;
+  align-items: start;
+  padding: 70px 0;
+  border-bottom: 1px solid #eee;
 }
 
-.place-img {
+.ta-image img{
   width: 859px;
   height: 700px;
   object-fit: cover;
+  display: block;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  border-radius: 6px;
 }
 
-.place-content {
-  width: 655px;
+/* 오른쪽 정보 */
+.ta-head{
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
-
-.place-content h2 {
+.ta-name{
   font-size: 48px;
   font-weight: 700;
-  margin-bottom: 10px;
+  line-height: 48px;
+  margin: 0;
+  color: #000;
+}
+.ta-map{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border: 1px solid #559DD5;
+  border-radius: 5px;
+  color: #559DD5;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 400;
 }
 
-.tags {
+.ta-tags{
+  margin-top: 22px;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 20px;
 }
-
-.tags span {
+.ta-tag{
   background: #559DD5;
-  color: white;
+  color: #fff;
+  border-radius: 999px;
   padding: 7px 20px;
-  border-radius: 51px;
   font-size: 20px;
   font-weight: 300;
+  line-height: 20px;
 }
 
-.description {
+.ta-desc{
+  margin-top: 26px;
+  width: 655px; /* 디자인 유지 */
+  max-width: 100%;
+  color: #434343;
   font-size: 20px;
+  font-weight: 400;
   line-height: 32px;
-  margin-bottom: 20px;
 }
 
-.info p {
-  font-size: 24px;
-  line-height: 38px;
-  margin: 5px 0;
+/* 메타 */
+.ta-meta{
+  margin-top: 26px;
+  display: grid;
+  gap: 14px;
 }
-
-.map-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 24px;
-  border: 1px solid #559DD5;
+.ta-row{
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  align-items: start;
+  gap: 12px;
+}
+.ta-key{
   color: #559DD5;
-  border-radius: 5px;
-  background: none;
-  cursor: pointer;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.ta-val{
+  color: #434343;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* 추천 활동 */
+.ta-activity{ margin-top: 22px; }
+.ta-key2{
+  color: #559DD5;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 38.4px;
+}
+.ta-list{
+  margin: 12px 0 0;
+  padding-left: 22px;
+  color: #434343;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 38.4px;
+}
+
+/* 반응형(필요 최소) */
+@media (max-width: 1200px){
+  .ta-section{
+    grid-template-columns: 1fr;
+  }
+  .ta-image img{
+    width: 100%;
+    height: auto;
+  }
+  .ta-name{ font-size: 36px; line-height: 36px; }
+  .ta-map{ font-size: 18px; line-height: 18px; }
 }

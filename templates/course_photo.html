@@ -1,8 +1,53 @@
 {% extends "index.html" %}
-{% block title %}사진 찍으러 가기{% endblock %}
+
+{% block title %}산책하러 가기{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/course_walk.css') }}">
+{% endblock %}
+
 {% block content %}
-  <div style="padding: 60px 80px;">
-    <h1>사진 찍으러 가기</h1>
-    <p>여기에 사진 코스 내용을 넣어줘.</p>
+<div class="scale-wrap">
+  <div class="design-1920">
+
+    <div class="walk-sub">감성 사진·인생샷을 남기기 좋은 장소 </div>
+    <div class="walk-title">사진 찍으로 가기</div>
+
+    <div class="info-card"></div>
+    <div id="cardTitle" class="info-title">흰여울문화마을 터널 포토 스팟</div>
+    <img id="cardImg" class="info-img"
+      src="{{ url_for('static', filename='img/walk/산책-해운대 1.png') }}"
+      alt="코스 이미지" />
+    <div id="cardAddr" class="info-addr">부산 영도구 영선동4가 1041</div>
+    <div id="cardTrans" class="info-trans">남포역에서 버스로 약 10분</div>
+    <div id="cardDesc" class="info-desc">
+      터널 끝으로 바다가 프레임처럼 보이는 흰여울문화마을의 대표 촬영 포인트. 어두운 터널과 밝은 바다의 대비가 인물 중심 사진을 돋보이게 만들어, 뒷모습이나 걷는 컷이 잘 나오는 인스타 감성 사진 촬영 스팟.
+    </div>
+
+    <div class="search-bar" role="search" aria-label="산책 지역 검색">
+      <img class="search-icon" src="{{ url_for('static', filename='img/walk/Group 164.png') }}" alt="" />
+      <input id="regionSearch" class="search-input" type="text"
+        placeholder="산책하고 싶은 지역명 검색" autocomplete="off" />
+    </div>
+
+    <div id="mapWrap" class="map-wrap">
+      <div id="mapContainer"
+        class="busan-map"
+        data-svg-url="{{ url_for('static', filename='img/map/busan_map.svg') }}"
+        aria-label="부산 지도"></div>
+
+      <div id="tooltip" class="tooltip" aria-hidden="true"></div>
+    </div>
+
   </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <!-- ✅ 삽입 확인용 (나중에 지워도 됨) -->
+  <script>console.log("✅ course_walk template scripts block OK");</script>
+
+  <script defer src="{{ url_for('static', filename='js/course_walk.js') }}"></script>
 {% endblock %}

@@ -1,180 +1,90 @@
-console.log("✅ course_walk.js 로드 성공");
-(() => {
-  "use strict";
+document.addEventListener("DOMContentLoaded", async () => {
+  const mapContainer = document.getElementById("mapContainer");
+  const svgUrl = mapContainer?.dataset.svgUrl;
+  if (!mapContainer || !svgUrl) return;
 
-  const STATIC_BASE = "/static/";
+  // 1) SVG 불러와 삽입
+  const res = await fetch(svgUrl);
+  const svgText = await res.text();
+  mapContainer.innerHTML = svgText;
 
-  const COURSE_DATA = {
-    "해운대구": {
-      title: "해운대 미포–해월전망대 해안 산책길",
-      img: STATIC_BASE + "img/walk/산책-해운대 1.png",
-      addr: "부산 해운대구 달맞이길62번길 13",
-      trans: "중동역에서 걸어서 18분",
-      desc: "넓게 펼쳐진 바다를 옆에 두고 나무 데크길을 따라 걸을 수 있는 부산 대표 산책 코스..."
-    }
-  };
+  const svg = mapContainer.querySelector("svg");
+  if (!svg) return;
 
-  function getCourse(name) {
-    return COURSE_DATA[name] || {
-      title: `${name} 추천 산책 코스`,
-      img: STATIC_BASE + "img/walk/default.png",
-      addr: `${name} 일대`,
-      trans: "대중교통 이용 후 도보 이동",
-      desc: "이 구/군의 산책 코스를 여기에 작성해줘!"
-    };
+  // 2) 카드 DOM
+  const cardTitle = document.getElementById("cardTitle");
+  const cardImg   = document.getElementById("cardImg");
+  const cardAddr  = document.getElementById("cardAddr");
+  const cardTrans = document.getElementById("cardTrans");
+  const cardDesc  = document.getElementById("cardDesc");
+
+  function setCard(guName){
+    const data = window.WALK_COURSES?.[guName];
+    if (!data) return;
+
+    cardTitle.textContent = data.title;
+    cardAddr.textContent  = data.addr;
+    cardTrans.textContent = data.trans;
+    cardDesc.textContent  = data.desc;
+    if (data.img) cardImg.src = data.img;
   }
 
-  function updateCard(name) {
-    const c = getCourse(name);
-    const title = document.getElementById("cardTitle");
-    const img = document.getElementById("cardImg");
-    const addr = document.getElementById("cardAddr");
-    const trans = document.getElementById("cardTrans");
-    const desc = document.getElementById("cardDesc");
+  // 3) “구 이름 → SVG 요소” 찾기
+  // ✅ busan_map.svg 안에서 각 구 path에 id가 "해운대구" 같은 식으로 붙어있으면 가장 확실함.
+  // 만약 id가 다르면 아래 selector만 네 svg에 맞게 수정하면 됨.
+  function pickGuEl(guName){
+    // 1순위: id 정확히 일치
+    let el = svg.querySelector(`#${CSS.escape(guName)}`);
+    if (el) return el;
 
-    if (!title || !img || !addr || !trans || !desc) return;
+    // 2순위: id에 일부 포함(예: "해운대"만 들어간 경우)
+    const key = guName.replace("구", "");
+    el = svg.querySelector(`[id*="${key}"]`);
+    if (el) return el;
 
-    title.textContent = c.title;
-    img.src = c.img;
-    img.alt = `${name} 코스 이미지`;
-    addr.textContent = c.addr;
-    trans.textContent = c.trans;
-    desc.textContent = c.desc;
+    // 3순위: data-name / aria-label 등
+    el = svg.querySelector(`[data-name="${guName}"], [aria-label="${guName}"]`);
+    return el;
   }
 
-  function injectStyle(svgRoot) {
-    const style = document.createElementNS("http://www.w3.org/2000/svg", "style");
-    style.textContent = `
-      .district{
-        cursor:pointer;
-        pointer-events:all;
-        transition: opacity .15s ease, stroke .15s ease;
-        stroke: transparent;
-        stroke-width: 2;
-      }
-      .district:hover{
-        opacity:.85;
-        stroke:#559DD5;
-      }
-      .district.is-selected{
-        opacity:1;
-        stroke:#559DD5;
-        stroke-width:3;
-        filter: drop-shadow(0 2px 8px rgba(85,157,213,0.35));
-      }
-    `;
-    svgRoot.appendChild(style);
-  }
+  const targetGus = ["수영구", "남구", "영도구", "해운대구"];
 
-  function pickTargets(svgRoot) {
-    let targets = Array.from(svgRoot.querySelectorAll("[data-name]"));
-    if (!targets.length) targets = Array.from(svgRoot.querySelectorAll("path[id], polygon[id], rect[id]"));
-    if (!targets.length) targets = Array.from(svgRoot.querySelectorAll("path, polygon, rect"));
+  // 4) 4개 구에 기본 스타일 부여 + 클릭 이벤트
+  const guEls = new Map();
+  targetGus.forEach((gu) => {
+    const el = pickGuEl(gu);
+    if (!el) return;
 
-    targets = targets.filter(el => el.getAttribute("fill") !== "none");
+    el.classList.add("gu-focus");
+    guEls.set(gu, el);
 
-    const rich = targets.some(el => el.hasAttribute("data-name") || el.hasAttribute("id"));
-    if (rich) targets = targets.filter(el => el.hasAttribute("data-name") || el.hasAttribute("id"));
+    el.addEventListener("click", () => {
+      // 기존 선택 해제
+      guEls.forEach((node) => node.classList.remove("is-selected"));
 
-    return targets;
-  }
+      // 선택 표시
+      el.classList.add("is-selected");
 
-  function getName(el) {
-    return (el.getAttribute("data-name") || el.getAttribute("id") || "").trim() || "알 수 없음";
-  }
-
-  function attach(svgRoot) {
-    injectStyle(svgRoot);
-
-    const mapWrap = document.getElementById("mapWrap");
-    const tooltip = document.getElementById("tooltip");
-    const input = document.getElementById("regionSearch");
-
-    const targets = pickTargets(svgRoot);
-    if (!targets.length) {
-      console.warn("⚠️ 클릭 대상이 0개야. SVG 안에 구역 path가 있는지 확인!");
-      return;
-    }
-
-    targets.forEach(el => el.classList.add("district"));
-
-    let selected = null;
-
-    const showTooltip = (text, x, y) => {
-      if (!tooltip || !mapWrap) return;
-      tooltip.textContent = text;
-      tooltip.style.opacity = "1";
-      tooltip.style.transform = "translateY(0)";
-      const rect = mapWrap.getBoundingClientRect();
-      tooltip.style.left = `${x - rect.left + 12}px`;
-      tooltip.style.top = `${y - rect.top + 12}px`;
-      tooltip.setAttribute("aria-hidden", "false");
-    };
-
-    const hideTooltip = () => {
-      if (!tooltip) return;
-      tooltip.style.opacity = "0";
-      tooltip.style.transform = "translateY(4px)";
-      tooltip.setAttribute("aria-hidden", "true");
-    };
-
-    const setSelected = (el) => {
-      if (selected) selected.classList.remove("is-selected");
-      selected = el;
-      selected.classList.add("is-selected");
-    };
-
-    targets.forEach(el => {
-      const name = getName(el);
-
-      el.addEventListener("mousemove", (e) => showTooltip(name, e.clientX, e.clientY));
-      el.addEventListener("mouseleave", hideTooltip);
-
-      el.addEventListener("click", () => {
-        setSelected(el);
-        updateCard(name);
-        if (input) input.value = name;
-      });
+      // 카드 내용 변경
+      setCard(gu);
     });
-
-    mapWrap?.addEventListener("mouseleave", hideTooltip);
-    console.log("✅ SVG 이벤트 연결 완료 / targets:", targets.length);
-  }
-
-  async function loadInlineSvg() {
-    console.log("✅ course_walk.js 로드됨");
-
-    const container = document.getElementById("mapContainer");
-    if (!container) {
-      console.warn("mapContainer 없음");
-      return;
-    }
-
-    const url = container.dataset.svgUrl;
-    console.log("svg url:", url);
-
-    if (!url) {
-      console.warn("data-svg-url이 없어!");
-      return;
-    }
-
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) throw new Error(`SVG fetch 실패: ${res.status} ${res.statusText}`);
-
-    const svgText = await res.text();
-    container.innerHTML = svgText;
-
-    const svgRoot = container.querySelector("svg");
-    if (!svgRoot) {
-      console.warn("SVG 루트 없음(파일 내용 확인 필요)");
-      return;
-    }
-
-    svgRoot.style.pointerEvents = "auto";
-    attach(svgRoot);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    loadInlineSvg().catch(err => console.error("❌ loadInlineSvg error:", err));
   });
-})();
+
+  // 5) 초기값: 해운대구 선택 상태로 시작
+  const initGu = "해운대구";
+  if (guEls.get(initGu)) {
+    guEls.forEach((node) => node.classList.remove("is-selected"));
+  }
+  setCard(initGu);
+});
+
+// (클릭 시) SVG 안의 모든 text를 회색으로 되돌리고
+svg.querySelectorAll("text").forEach(t => t.style.fill = "#000");
+
+// 선택된 구 내부의 text는 흰색으로
+el.querySelectorAll("text").forEach(t => t.style.fill = "#ffffffff");
+
+const initGu = "해운대구";
+
+const initEl = guEls.get(initGu);
+if (initEl) initEl.classList.add("gu-default");  // ✅ 해운대 기본 파란 텍스트
