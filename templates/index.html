@@ -89,22 +89,55 @@
 
       <p class="p">다채로운 반전의 대조적 매력을 가진 도시, 부산</p>
       <p class="text-wrapper-6">Busan, a city of vibrant contrasts and unexpected charm</p>
-      <img class="element-2" src="{{ url_for('static', filename='img/index/메인-해동용궁사 1.png') }}" />
-      <img class="element-3" src="{{ url_for('static', filename='img/index/시티 1.png') }}" />
+      
+      <div class="hero-slider" id="heroSlider">
+        <!-- slide 0 -->
+        <div class="hero-pair is-active" data-tag="tagNature">
+          <img class="element-2" src="{{ url_for('static', filename='img/index/메인-해동용궁사 1.png') }}" />
+          <img class="element-3" src="{{ url_for('static', filename='img/index/시티 1.png') }}" />
+        </div>
 
-      <div class="group-2">
+        <!-- slide 1 -->
+        <div class="hero-pair" data-tag="tagLocal">
+          <img class="element-2" src="{{ url_for('static', filename='img/index/부산2 2.png') }}" />
+          <img class="element-3" src="{{ url_for('static', filename='img/index/글로벌 1.png') }}" />
+        </div>
+
+        <!-- slide 2 -->
+        <div class="hero-pair" data-tag="tagPassion">
+          <img class="element-2" src="{{ url_for('static', filename='img/index/물류 1.png') }}" />
+          <img class="element-3" src="{{ url_for('static', filename='img/index/영화의 전당.png') }}" />
+        </div>
+
+        <!-- slide 3 -->
+        <div class="hero-pair" data-tag="tagFourth">
+          <img class="element-2" src="{{ url_for('static', filename='img/index/열정 1.png') }}" />
+          <img class="element-3" src="{{ url_for('static', filename='img/index/시장 1.png') }}" />
+        </div>
+      </div>
+
+
+      <div class="group-2 tag-box" id="tagNature">
         <div class="rectangle"></div>
         <div class="nature-city">Nature &amp; City</div>
       </div>
-      <div class="group-3">
+
+      <div class="group-3 tag-box" id="tagLocal">
         <div class="rectangle-2"></div>
         <div class="text-wrapper-11">Local &amp; Global</div>
       </div>
-      <div class="group-4">
+
+      <div class="group-4 tag-box" id="tagPassion">
         <div class="rectangle-2"></div>
         <div class="text-wrapper-11">Passionate &amp; Humane</div>
-        <p class="text-wrapper-11">Cluster Hub &amp; Art, Cultural Mecca</p>
       </div>
+
+      <div class="group-5 tag-box" id="tagFourth">
+        <div class="rectangle-2"></div>
+        <div class="text-wrapper-11">Cluster Hub &amp; Art, Cultural Mecca</div>
+      </div>
+
+
 
       <p class="text-wrapper-8">
         여행부터 비즈니스까지 모든 경험이 만족스러운 살기 좋은 도시 온갖 <br />
@@ -179,5 +212,34 @@
   </footer>
     <!-- ✅ 자식 페이지가 JS 넣는 자리 -->
   {% block scripts %}{% endblock %}
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const pairs = Array.from(document.querySelectorAll("#heroSlider .hero-pair"));
+    if (pairs.length === 0) return;
+
+    let idx = 0;
+
+    function applyActive(nextIdx){
+      // 이미지 세트 active
+      pairs.forEach((p, i) => p.classList.toggle("is-active", i === nextIdx));
+
+      // 태그 박스 active
+      document.querySelectorAll(".tag-box").forEach(el => el.classList.remove("is-active"));
+
+      const targetTagId = pairs[nextIdx].dataset.tag; // tagNature...
+      const target = document.getElementById(targetTagId);
+      if (target) target.classList.add("is-active");
+    }
+
+    applyActive(idx);
+
+    setInterval(() => {
+      idx = (idx + 1) % pairs.length;
+      applyActive(idx);
+    }, 2000);
+  });
+  </script>
+
+
 </body>
 </html>
