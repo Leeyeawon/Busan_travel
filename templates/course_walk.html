@@ -26,11 +26,21 @@
     </div>
 
     <div class="search-bar" role="search" aria-label="산책 지역 검색">
-      <img class="search-icon" src="{{ url_for('static', filename='img/walk/Group 164.png') }}" alt="" />
-      <input id="regionSearch" class="search-input" type="text"
-        placeholder="산책하고 싶은 지역명 검색" autocomplete="off" />
+      <img class="search-icon" 
+        src="{{ url_for('static', filename='img/walk/Group 164.png') }}" 
+        alt="검색 아이콘"
+        onclick="handleSearch();" /> <input id="regionSearch" class="search-input" type="text"
+        placeholder="산책하고 싶은 지역명 검색" autocomplete="off"
+        onkeydown="if(event.key === 'Enter') handleSearch();" /> 
     </div>
 
+    <div id="searchResults" class="search-results" hidden>
+      <div class="results-head">
+        <div class="results-title">검색 결과</div>
+        <div id="resultsQuery" class="results-query"></div>\
+     </div>
+     <div id="resultsList" class="results-list"></div>
+    </div>
     
     <div id="mapWrap" class="map-wrap">
       <div id="mapContainer"
@@ -40,15 +50,12 @@
 
       <div id="tooltip" class="tooltip" aria-hidden="true"></div>
     </div>
-
   </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
   {{ super() }}
-  <!-- ✅ 삽입 확인용 (나중에 지워도 됨) -->
-  <script>console.log("✅ course_walk template scripts block OK");</script>
 
   <script>
     window.WALK_COURSES = {

@@ -16,61 +16,6 @@ body {
   font-family: "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-.site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 25px 0px;
-}
-
-.logo-img{
-    width: 100%;
-    display: block;
-    flex-shrink: 0;
-}
-
-/* ✅ 로고+메뉴를 한 그룹으로 */
-.header-left {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 40px;
-  font-size: 24px;
-  font-family: "Noto Sans KR-Regular", Helvetica;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.menu-item {
-  color: #AEAEAE;
-  cursor: pointer;
-}
-
-.menu-item.active {
-  color: #559DD5;
-  font-weight: 700;
-}
-
-.login-button {
-  background: #559DD5;
-  border-radius: 30px;
-  color: #fff;
-  padding: 6px 45px;
-  font-size: 20px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-@media (max-width: 1200px) {
-  .site-header { padding: 20px 40px; }
-  .nav-menu { gap: 24px; font-size: 20px; }
-  .logo { height: 34px; }
-}
-
 .scale-wrap {
   --design-w: 1920px;
   --design-h: 1867px;
@@ -91,12 +36,11 @@ body {
   transform-origin: top left;
 }
 
-.design-1920 {
+.design-1920{
   width: var(--design-w);
   height: var(--design-h);
   position: relative;
   background: #fff;
-  overflow: hidden;
 
   transform: scale(var(--scale));
   transform-origin: top left;
@@ -177,52 +121,6 @@ body {
   color: #fff;
   font-size: 24px;
   font-weight: 500;
-  line-height: 24px;
-}
-
-/* Nav texts */
-.nav-text {
-  position: absolute;
-  text-align: center;
-  font-size: 24px;
-  line-height: 24px;
-  font-weight: 400;
-  color: #AEAEAE;
-}
-
-.nav-festival {
-  color: #559DD5;
-  font-weight: 700;
-}
-
-/* Logo & login */
-.logo {
-  position: absolute;
-  width: 168px;
-  height: 39px;
-  left: 95px;
-  top: 23px;
-  object-fit: contain;
-}
-
-.login-pill {
-  position: absolute;
-  width: 144px;
-  height: 41px;
-  left: 1681px;
-  top: 21px;
-  background: #559DD5;
-  border-radius: 30px;
-}
-
-.login-text {
-  position: absolute;
-  left: 1721px;
-  top: 30px;
-  text-align: center;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 400;
   line-height: 24px;
 }
 
@@ -316,37 +214,6 @@ body {
 @keyframes overlayIn {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-/* =========================
-   ✅ FIX: 헤더가 깨지는 문제(중요)
-   - festivities.css의 .logo absolute가 index.html 헤더 로고까지 영향 줌
-   - header 안 로고만 정상 흐름으로 강제
-========================= */
-header .logo{
-  position: static !important;
-  left: auto !important;
-  top: auto !important;
-  width: auto !important;
-  height: 39px !important;    /* 필요하면 34~45로 조절 */
-  object-fit: contain !important;
-  display: block !important;
-  flex-shrink: 0 !important;
-}
-
-/* ✅ 헤더 레이아웃 안정화(혹시 다른 CSS가 건드려도 유지) */
-header{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 25px 80px !important;   /* index.css랑 맞춰도 됨 */
-}
-
-header .nav-menu{
-  display: flex !important;
-  gap: 40px !important;
-  margin-left: 40px !important;
-  white-space: nowrap !important;
 }
 
 /* =========================

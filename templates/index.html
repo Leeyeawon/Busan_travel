@@ -34,8 +34,10 @@
 <body>
   <header>
     <!-- ✅ 로고 1개만 사용 -->
-    <img src="{{ url_for('static', filename='img/index/로고2 2.png') }}" alt="로고" class="logo">
 
+    <a data-href="{{ url_for('indexhtml') }}">
+      <img src="{{ url_for('static', filename='img/index/로고2 2.png') }}" alt="로고" class="logo">
+    </a>  
     <nav class="nav-menu">
       <span class="menu-item {% if request.endpoint=='indexhtml' %}active{% endif %}"
             data-href="{{ url_for('indexhtml') }}">메인</span>
@@ -48,9 +50,6 @@
 
       <span class="menu-item {% if request.endpoint=='festivitieshtml' %}active{% endif %}"
             data-href="{{ url_for('festivitieshtml') }}">행사·축제</span>
-
-      <span class="menu-item {% if request.endpoint=='traffichtml' %}active{% endif %}"
-            data-href="{{ url_for('traffichtml') }}">교통·주차</span>
     </nav>
 
     <div class="login-button" data-href="{{ url_for('loginhtml') }}">로그인</div>
@@ -82,7 +81,7 @@
       </div>
 
       <div class="div">
-        <div class="text-wrapper-2">{{ avg_temp }}˚C</div>
+        <div class="text-wrapper-2">{{ current_temp }}˚C</div>
         <div class="text-wrapper-3">최대: {{ tmax }}˚C</div>
         <div class="text-wrapper-4">최저: {{ tmin }}˚C</div>
       </div>

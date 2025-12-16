@@ -1,8 +1,84 @@
 {% extends "index.html" %}
+
 {% block title %}바다 보러 가기{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/course_walk.css') }}">
+{% endblock %}
+
 {% block content %}
-  <div style="padding: 60px 80px;">
-    <h1>바다 보러 가기</h1>
-    <p>여기에 바다 코스 내용을 넣어줘.</p>
+<div class="scale-wrap">
+  <div class="design-1920">
+
+    <div class="walk-sub">부산의 해안 풍경을 가장 잘 느낄 수 있는 명소들</div>
+    <div class="walk-title">바다 보러 가기</div>
+
+    <div class="info-card"></div>
+    <div id="cardTitle" class="info-title">송정 해수욕장</div>
+    <img id="cardImg" class="info-img"
+      src="{{ url_for('static', filename='img/walk/산책-해운대 1.png') }}"
+      alt="코스 이미지" />
+    <div id="cardAddr" class="info-addr">부산 기장군 송정해변로 62</div>
+    <div id="cardTrans" class="info-trans">송정역에서 걸어서 5분</div>
+    <div id="cardDesc" class="info-desc">
+      잔잔한 파도와 여유로운 분위기가 어우러진 동부산 대표 해변. 바다를 가까이서 느끼며 걷기 좋고, 서핑하는 풍경까지 함께 볼 수 있어 한적하게 머물기 좋은 힐링 바다 코스.
+    </div>
+
+    <div class="search-bar" role="search" aria-label="바다 지역 검색">
+      <img class="search-icon" src="{{ url_for('static', filename='img/walk/Group 164.png') }}" alt="" />
+      <input id="regionSearch" class="search-input" type="text"
+        placeholder="바다보러 가고 싶은 지역명 검색" autocomplete="off" />
+    </div>
+
+    
+    <div id="mapWrap" class="map-wrap">
+      <div id="mapContainer"
+        class="busan-map"
+        data-svg-url="{{ url_for('static', filename='img/map/busan_map.svg') }}"
+        aria-label="부산 지도"></div>
+
+      <div id="tooltip" class="tooltip" aria-hidden="true"></div>
+    </div>
   </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+
+  <script>
+    window.WALK_COURSES = {
+      "기장군": {
+        title: "송정 해수욕장",
+        img: "{{ url_for('static', filename='img/walk/송정.png') }}",
+        addr: "부산 기장군 송정해변로 62",
+        trans: "송정역에서 걸어서 5분",
+        desc: "잔잔한 파도와 여유로운 분위기가 어우러진 동부산 대표 해변. 바다를 가까이서 느끼며 걷기 좋고, 서핑하는 풍경까지 함께 볼 수 있어 한적하게 머물기 좋은 힐링 바다 코스."
+      },
+      "해운대구": {
+        title: "해운대 해수욕장",
+        img: "{{ url_for('static', filename='img/walk/해운대 해수욕장.png') }}",
+        addr: "부산 해운대구 해운대해변로 264",
+        trans: "해운대역에서 걸어서 10분",
+        desc: "넓은 백사장과 탁 트인 바다가 한눈에 펼쳐지는 부산 대표 해변. 낮에는 시원한 바다 풍경을, 해 질 무렵에는 노을과 함께 여유로운 분위기를 느끼기 좋은 바다 감상 해변 코스."
+      },
+      "수영구": {
+        title: "광안리 해변",
+        img: "{{ url_for('static', filename='img/walk/광안리해변.png') }}",
+        addr: "부산 수영구 광안해변로 219",
+        trans: "광안역에서 걸어서 12분",
+        desc: "광안대교를 정면으로 마주한 바다 풍경이 인상적인 해변. 낮과 밤의 분위기가 뚜렷하게 달라 산책하며 바다를 바라보기 좋고, 특히 야경이 아름다운 바다 감상 코스."
+      },
+      "사하구": {
+        title: "다대포 해수욕장",
+        img: "{{ url_for('static', filename='img/walk/다대포해수욕장.png') }}",
+        addr: "부산 사하구 몰운대1길 14",
+        trans: "다대포해수욕장역에서 걸어서 5분",
+        desc: "넓은 모래사장과 탁 트인 수평선이 인상적인 서부산 대표 해변. 사람이 비교적 적어 조용히 바다를 바라보며 쉬기 좋고, 일몰 시간대 풍경이 특히 아름다운 노을 감상 코스."
+      }
+    };
+  </script>
+
+  <script defer src="{{ url_for('static', filename='js/course_sea.js') }}"></script>
 {% endblock %}

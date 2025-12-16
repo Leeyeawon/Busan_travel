@@ -5,7 +5,7 @@
 }
 
 /* 타이틀 */
-.ta-title{ margin-top: 20px; }
+.ta-title{ margin-top: -20px; }
 .ta-sub{
   font-size: 24px;
   font-weight: 300;
@@ -20,6 +20,10 @@
   color: #000;
 }
 
+.i{
+  margin-top: -40px;
+}
+
 /* 섹션(카드) */
 .ta-section{
   display: grid;
@@ -27,7 +31,6 @@
   gap: 64px;
   align-items: start;
   padding: 70px 0;
-  border-bottom: 1px solid #eee;
 }
 
 .ta-image img{
@@ -94,7 +97,7 @@
 
 /* 메타 */
 .ta-meta{
-  margin-top: 26px;
+  margin-top: 30px;
   display: grid;
   gap: 14px;
 }
@@ -118,7 +121,7 @@
 }
 
 /* 추천 활동 */
-.ta-activity{ margin-top: 22px; }
+.ta-activity{ margin-top: 40px; }
 .ta-key2{
   color: #559DD5;
   font-size: 24px;

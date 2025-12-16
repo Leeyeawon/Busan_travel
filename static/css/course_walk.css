@@ -7,7 +7,7 @@ body { overflow-x: hidden; font-family: "Noto Sans KR", system-ui, -apple-system
 
 .scale-wrap{
   --design-w: 1920px;
-  --design-h: 993px;
+  --design-h: 1350px;
   --scale: min(1, calc(100vw / var(--design-w)));
   width: 100%;
   height: calc(var(--design-h) * var(--scale));
@@ -122,11 +122,79 @@ body { overflow-x: hidden; font-family: "Noto Sans KR", system-ui, -apple-system
   fill: #559DD5 !important;
 }
 
+.gu-suyeong:not(.is-selected) .gu-label{
+  fill:#D0D0D0 !important;
+}
 
 .scale-wrap .design-1920{
   transform: scale(var(--scale)) translateY(-120px);
   transform-origin: top left;
 }
 
+/* ✅ 지도 라벨(텍스트 path)은 효과/필터/호버 제외 */
+.busan-map .gu-label{
+  fill: #CDCDCD !important;
+  filter: none !important;
+  stroke: none !important;
+  paint-order: normal !important;
+  pointer-events: none; /* 글자 위에 마우스 올려도 구 hover가 꼬이지 않게 */
+}
 
+/* ✅ 수영구 라벨 위치(여기 숫자만 맞추면 됨) */
+.label-su{
+  left: 540px;   /* <- 조절 */
+  top: 260px;    /* <- 조절 */
+}
 
+/* ✅ 검색 결과 박스 */
+.search-results{
+  position: absolute;
+  left: 273px;
+  top: 990px;         /* 검색창(905) 아래로 */
+  width: 1374px;
+  height: 320px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: 16px 18px;
+  overflow: auto;
+}
+
+.results-head{
+  display:flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.results-title{
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.results-query{
+  font-size: 16px;
+  color: #8e8e8e;
+}
+
+.results-item{
+  padding: 12px 10px;
+  border-top: 1px solid #eee;
+}
+
+.results-item:first-child{
+  border-top: 0;
+}
+
+.results-item a{
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.results-meta{
+  margin-top: 6px;
+  color: #666;
+  font-size: 14px;
+  line-height: 20px;
+}
