@@ -226,6 +226,9 @@ def _strip_tags(s: str) -> str:
 # ... (기존 코드 유지) ...
 
 @app.get("/api/naver-walk")
+@app.route("/api/naver-photo")
+@app.route("/api/naver-sea")
+@app.route("/api/naver-hotplace")
 def api_naver_walk():
     q = (request.args.get("q") or "").strip()
     if not q:
@@ -235,7 +238,14 @@ def api_naver_walk():
         return jsonify({"items": [], "error": "NAVER API 키가 없습니다."}), 400
 
     # 🚨 수정: 검색어 뒤에 '산책'을 추가
-    search_query = q + " 산책"
+    suffix = {
+    "/api/naver-walk": "산책",
+    "/api/naver-photo": "포토 스팟",
+    "/api/naver-sea": "바다 포토 스팟",
+    "/api/naver-hotplace": "핫플",
+    }.get(request.path, "포토 스팟")
+
+    search_query = f"{q} {suffix}"
 
     try:
         # 🚨 수정: 지역 검색 API -> 블로그 검색 API URL로 변경

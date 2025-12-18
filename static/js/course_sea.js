@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return el;
   }
 
-  const targetGus = ["수영구", "남구", "영도구", "해운대구"];
+  const targetGus = ["사하구", "수영구", "해운대구", "기장군"];
 
   // 4) 4개 구에 기본 스타일 부여 + 클릭 이벤트
   const guEls = new Map();
@@ -108,7 +108,7 @@ const resultsListDiv = document.getElementById("resultsList");
 
 /**
  * 네이버 블로그 검색 API를 호출하여 결과를 표시합니다.
- * - 검색어 뒤에 "산책"을 자동으로 추가합니다. (app.py에서 처리)
+ * - 검색어 뒤에 "바다"을 자동으로 추가합니다. (app.py에서 처리)
  */
 const searchIcon = document.querySelector(".search-icon");
 
@@ -133,7 +133,7 @@ const handleSearch = async () => {
   }
 
   // 로딩 중 표시 및 검색 영역 활성화
-  resultsQuerySpan.textContent = `"${query} 산책" (검색 중...)`;
+  resultsQuerySpan.textContent = `"${query} 바다" (검색 중...)`;
   resultsListDiv.innerHTML =
     '<div style="padding: 12px; text-align: center; color: #808080;">네이버 블로그 검색 결과를 불러오는 중...</div>';
   searchResultsDiv.hidden = false;
@@ -141,7 +141,7 @@ const handleSearch = async () => {
   try {
     // query 파라미터로 사용자가 입력한 값만 보냅니다.
     const response = await fetch(
-      `/api/naver-walk?q=${encodeURIComponent(query)}`
+      `/api/naver-sea?q=${encodeURIComponent(query)}`
     );
 
     if (!response.ok) {
@@ -157,7 +157,7 @@ const handleSearch = async () => {
     const data = await response.json();
 
     // 검색 결과 표시 업데이트
-    resultsQuerySpan.textContent = `"${query} 산책" (${data.items.length}건)`;
+    resultsQuerySpan.textContent = `"${query} 바다" (${data.items.length}건)`;
 
     if (data.items.length === 0) {
       resultsListDiv.innerHTML =
@@ -199,7 +199,7 @@ const handleSearch = async () => {
     }
 
     resultsListDiv.innerHTML = `<div style="padding: 12px; color: #cc0000; font-weight:700;">검색 실패: ${errorMsg}</div>`;
-    resultsQuerySpan.textContent = `"${query} 산책" (검색 실패)`;
+    resultsQuerySpan.textContent = `"${query} 바다" (검색 실패)`;
   }
 };
 

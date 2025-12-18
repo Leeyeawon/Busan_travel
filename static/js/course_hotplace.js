@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return el;
   }
 
-  const targetGus = ["수영구", "남구", "영도구", "해운대구"];
+  const targetGus = ["중구", "동래구", "부산진구", "해운대구"];
 
   // 4) 4개 구에 기본 스타일 부여 + 클릭 이벤트
   const guEls = new Map();
@@ -75,14 +75,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       setCard(gu);
     });
 
-    const initGu = "해운대구";
+    const initGu = "부산진구";
 
     const initEl = guEls.get(initGu);
     if (initEl) initEl.classList.add("gu-default"); // ✅ 해운대 기본 파란 텍스트
   });
 
   // 5) 초기값: 해운대구 선택 상태로 시작
-  const initGu = "해운대구";
+  const initGu = "부산진구";
   if (guEls.get(initGu)) {
     guEls.forEach((node) => node.classList.remove("is-selected"));
   }
@@ -133,7 +133,7 @@ const handleSearch = async () => {
   }
 
   // 로딩 중 표시 및 검색 영역 활성화
-  resultsQuerySpan.textContent = `"${query} 산책" (검색 중...)`;
+  resultsQuerySpan.textContent = `"${query} 핫플" (검색 중...)`;
   resultsListDiv.innerHTML =
     '<div style="padding: 12px; text-align: center; color: #808080;">네이버 블로그 검색 결과를 불러오는 중...</div>';
   searchResultsDiv.hidden = false;
@@ -141,7 +141,7 @@ const handleSearch = async () => {
   try {
     // query 파라미터로 사용자가 입력한 값만 보냅니다.
     const response = await fetch(
-      `/api/naver-walk?q=${encodeURIComponent(query)}`
+      `/api/naver-hotplace?q=${encodeURIComponent(query)}`
     );
 
     if (!response.ok) {
@@ -157,7 +157,7 @@ const handleSearch = async () => {
     const data = await response.json();
 
     // 검색 결과 표시 업데이트
-    resultsQuerySpan.textContent = `"${query} 산책" (${data.items.length}건)`;
+    resultsQuerySpan.textContent = `"${query} 핫플" (${data.items.length}건)`;
 
     if (data.items.length === 0) {
       resultsListDiv.innerHTML =
@@ -199,7 +199,7 @@ const handleSearch = async () => {
     }
 
     resultsListDiv.innerHTML = `<div style="padding: 12px; color: #cc0000; font-weight:700;">검색 실패: ${errorMsg}</div>`;
-    resultsQuerySpan.textContent = `"${query} 산책" (검색 실패)`;
+    resultsQuerySpan.textContent = `"${query} 핫플" (검색 실패)`;
   }
 };
 

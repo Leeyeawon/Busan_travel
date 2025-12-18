@@ -25,17 +25,27 @@
       넓게 펼쳐진 바다를 옆에 두고 나무 데크길을 따라 걸을 수 있는 부산 대표 산책 코스. 파도 소리와 바람을 느끼며 천천히 걷기 좋아 여행객들이 가장 많이 찾는 힐링 루트.
     </div>
 
-    <div class="search-bar" role="search" aria-label="산책 지역 검색">
-      <img class="search-icon" src="{{ url_for('static', filename='img/walk/Group 164.png') }}" alt="" />
-      <input id="regionSearch" class="search-input" type="text"
-        placeholder="사진 찍고 싶은 지역명 검색" autocomplete="off" />
+    <div class="search-bar" role="search" aria-label="사진 찍을 지역 검색">
+      <img class="search-icon" 
+        src="{{ url_for('static', filename='img/walk/Group 164.png') }}" 
+        alt="검색 아이콘"
+        /> <input id="regionSearch" class="search-input" type="text"
+        placeholder="사진 찍고 싶은 지역명 검색" autocomplete="off"
+        /> 
     </div>
 
+    <div id="searchResults" class="search-results" hidden>
+      <div class="results-head">
+        <div class="results-title">검색 결과</div>
+        <div id="resultsQuery" class="results-query"></div>\
+     </div>
+     <div id="resultsList" class="results-list"></div>
+    </div>
     
     <div id="mapWrap" class="map-wrap">
       <div id="mapContainer"
         class="busan-map"
-        data-svg-url="{{ url_for('static', filename='img/map/busan_map_photo.svg') }}"
+        data-svg-url="{{ url_for('static', filename='img/map/busan_map.svg') }}"
         aria-label="부산 지도"></div>
 
       <div id="tooltip" class="tooltip" aria-hidden="true"></div>

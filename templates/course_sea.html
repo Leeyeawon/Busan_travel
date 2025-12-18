@@ -26,12 +26,22 @@
     </div>
 
     <div class="search-bar" role="search" aria-label="바다 지역 검색">
-      <img class="search-icon" src="{{ url_for('static', filename='img/walk/Group 164.png') }}" alt="" />
-      <input id="regionSearch" class="search-input" type="text"
-        placeholder="바다보러 가고 싶은 지역명 검색" autocomplete="off" />
+      <img class="search-icon" 
+        src="{{ url_for('static', filename='img/walk/Group 164.png') }}" 
+        alt="검색 아이콘"
+        /> <input id="regionSearch" class="search-input" type="text"
+        placeholder="바다보고 싶은 지역명 검색" autocomplete="off"
+        /> 
     </div>
 
-    
+    <div id="searchResults" class="search-results" hidden>
+      <div class="results-head">
+        <div class="results-title">검색 결과</div>
+        <div id="resultsQuery" class="results-query"></div>\
+     </div>
+     <div id="resultsList" class="results-list"></div>
+    </div>
+
     <div id="mapWrap" class="map-wrap">
       <div id="mapContainer"
         class="busan-map"
